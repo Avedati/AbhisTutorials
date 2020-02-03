@@ -1,0 +1,338 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat|Inconsolata');
+
+* {
+	font-family:'Montserrat';
+}
+
+html, body {
+	margin:0;
+	padding:0;
+	width:100%;
+	height:100%;
+	overflow:hidden;
+}
+
+div.screen {
+	position:absolute;
+	left:0px;
+	top:0px;
+	width:0px;
+	height:100%;
+	visibility:hidden;
+}
+
+div.screen#home article {
+	float:left;
+	width:50%;
+	height:100%;
+}
+
+div.screen#home article h1 {
+	float:left;
+	width:100%;
+	height:10%;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	font-size:3vw;
+}
+
+div.screen#home article p {
+	float:left;
+	margin:5px 5vw;
+	width:80%;
+	height:calc(40% - 10px);
+	font-size:1.25vw;
+}
+
+div.screen#home article button#go {
+	float:left;
+	margin:5px 5vw;
+	width:80%;
+	height:calc(20% - 10px);
+	background:#C6D8D3;
+	font-size:2vw;
+	border:0;
+	outline:0;
+	border-radius:10px;
+	transition:background .5s;
+	color:black;
+}
+
+div.screen#home article button#go:hover {
+	background:#D7E9E4;
+}
+
+div.screen#home aside {
+	float:left;
+	width:50%;
+	height:100%;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+/* https://stackoverflow.com/questions/15866223/how-to-make-images-get-cut-off */
+div.screen#home aside div {
+	position:relative;
+	width:450px;
+	height:450px;
+	border-radius:50%;
+	overflow:hidden;
+}
+
+div.screen#home aside div img {
+	position:absolute;
+	left:-25%;
+	top:-10%;
+	min-width:100%;
+	min-height:100%;
+}
+
+h1#title {
+	float:left;
+	width:100vw;
+	height:10vh;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+}
+
+button.back {
+	float:left;
+	width:20vw;
+	height:10vh;
+	margin-left:5vw;
+	margin-right:75vw;
+	margin-top:2.5vh;
+	border-radius:10px;
+	background:white;
+	color:black;
+	font-size:150%;
+	transition:background .5s;
+	border:0;
+	outline:0;
+}
+
+button.back:hover {
+	background:#ececec;
+}
+
+div.screen.active {
+	width:100%;
+	visibility:visible;
+}
+
+div.cell {
+	float:left;
+	margin:10px;
+	width:calc(25% - 20px);
+	height:calc(30% - 20px);
+	border-radius:5px;
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	transition:background .5s;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	-ms-user-select:none;
+	-o-user-select:none;
+	user-select:none;
+}
+
+div.cell#neural-networks {
+	background:#C6D8D3;
+	color:black;
+}
+
+div.cell#neural-networks:hover {
+	background:#D7E9E4;
+}
+
+div.screen#neural-networks-content {
+	background:#C6D8D3;
+}
+
+div.cell#game-design {
+	background:#C6D8D3;
+	color:black;
+}
+
+div.cell#game-design:hover {
+	background:#D7E9E4;
+}
+
+div.screen#game-design-content {
+	background:#C6D8D3;
+}
+
+div.cell#assembly-language {
+	background:#C6D8D3;
+	color:black;
+}
+
+div.cell#assembly-language:hover {
+	background:#D7E9E4;
+}
+
+div.screen#assembly-language-content {
+	background:#C6D8D3;
+}
+
+div.space {
+	float:left;
+	width:100%;
+	height:5%;
+}
+
+p {
+	line-height:3.5vh;
+}
+
+ul {
+	padding:0;
+	list-style-type:none;
+	font-size:70%;
+}
+
+ul li a {
+	line-height:3vh;
+}
+
+div.image-container {
+	text-align:center;
+}
+
+div.image-container img {
+	max-width:100px;
+}
+
+div.image-container p {
+	font-style:italic;
+}
+
+div.content-wrapper {
+	float:left;
+	margin-top:2.5vh;
+	margin:5vh 5vw;
+	padding:2.5vh 2.5vw;
+	width:85vw;
+	height:75vh;
+	background:white;
+	border-radius:10px;
+	overflow-y:scroll;
+	font-family:'Montserrat';
+}
+
+div.content-wrapper *::selection {
+	background:#EFD6AC;
+}
+
+div.code span { font-family:'Inconsolata'; }
+
+span.bold { font-weight:bold; }
+span.italic { font-style:italic; }
+span.red { color:#ff7979; }
+span.green { color:#badc58; }
+span.blue { color:#7ed6df; }
+span.yellow { color:#ffeaa7; }
+span.purple { color:#a29bfe; }
+span.grey { color:#95afc0; }
+span.code { background:#272727; color:white; }
+
+div.code {
+	float:left;
+	background:#272727;
+	color:white;
+	font-family:'Inconsolata';
+	padding:10px;
+	margin:10px 0px;
+	width:calc(100% - 20px);
+	height:auto;
+	border-radius:10px;
+	line-height:3vh;
+}
+
+div.texteditor {
+	float:left;
+	position:relative;
+	width:100%;
+	height:40vh;
+	border-radius:10px;
+}
+
+div.texteditor textarea.code {
+	float:left;
+	padding:10px;
+	width:calc(50% - 20px);
+	height:calc(100% - 20px);
+	border:0;
+	outline:0;
+	resize:none;
+	background:#272727;
+	color:white;
+	font-family:'Inconsolata';
+	font-size:100%;
+	line-height:3vh;
+	white-space:pre;
+	overflow-y:scroll;
+	border-radius:10px 0px 0px 10px;
+}
+
+div.texteditor button.play {
+	position:absolute;
+	left:43%;
+	top:73%;
+	width:64px;
+	height:64px;
+	border:0;
+	outline:0;
+	border-radius:50%;
+	background:#383838;
+	color:white;
+	font-family:'Inconsolata';
+	font-size:250%;
+	transition:background .5s;
+}
+
+div.texteditor button.play:hover {
+	background:#494949;
+}
+
+div.texteditor div.output {
+	float:left;
+	padding:10px;
+	border:0;
+	outline:0;
+	width:calc(50% - 20px);
+	height:calc(100% - 20px);
+	background:#383838;
+	color:white;
+	font-family:'Inconsolata';
+	font-size:100%;
+	overflow-y:scroll;
+	border-radius:0px 10px 10px 0px;
+}
+
+a {
+	float:left;
+	width:100%;
+	text-decoration:none;
+	color:#22a6b3;
+	transition:color .5s;
+	font-size:130%;
+	line-height:5vh;
+}
+
+a:hover {
+	color:#badc58;
+}
+
+canvas {
+	margin:0px 10px;
+	border-radius:5px;
+}
+
+canvas.video {
+	border-radius:10px;
+}

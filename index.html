@@ -1,0 +1,732 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8' />
+		<title>Teaching Website</title>
+		<link rel='stylesheet' href='style.css' type='text/css' />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML"></script>
+		<script src='main.js' type='text/javascript'></script>
+	</head>
+	<body>
+		<template id='texteditor-template'>
+			<div class='texteditor'>
+				<textarea class='code' placeholder='// Hello, world!' spellcheck='false'></textarea>
+				<button class='play'>&gt;</button>
+				<div class='output'></div>
+			</div>
+		</template>
+
+		<template id='video-template'>
+			<canvas class='video'></canvas>
+		</template>
+
+		<template id='split-data-template'>
+			<canvas class='split-data'></canvas>
+		</template>
+
+		<template id='practice-question-template'>
+			<div class='practice-question'>
+				<p></p>
+			</div>
+		</template>
+
+		<div class='screen active' id='home'>
+			<article>
+				<h1>Abhi's Tutorials</h1>
+				<p>Hi, I'm Abhi. I am a high school student at a startup school in the San Francisco Bay Area affiliated with Khan Academy. I have a passion for computer science, and I have been programming for 5 years. This site is where I teach what I have learned in Computer Science and other usually STEM-related subjects, using plenty of examples and citing my sources where applicable. On this site, you will find tutorials for building neural networks, *insert others here when those tutorials are ready*. I hope you enjoy my content!</p>
+				<button id='go'>Go!</button>
+			</article>
+			<aside>
+				<div><img src='res/profile.png'></img></div>
+			</aside>
+		</div>
+
+		<div class='screen' id='tutorials'>
+			<h1 id='title'>Tutorials</h1>
+			<div class='cell' id='neural-networks'>Neural Networks</div>
+			<div class='cell' id='game-design'>Game Design</div>
+			<div class='cell' id='assembly-language'>Intel Linux x86-64 Assembly Language</div>
+			<!-- div class='cell' id='compiler-design'>compiler design</div -->
+			<!-- div class='cell' id='web-scraping'>Compiler Design</div -->
+			<!-- div class='cell' id='operating-system-design'>Compiler Design</div -->
+		</div>
+		<div class='screen' id='neural-networks-content'>
+			<button class='back'>Back</button>
+			<div class='content-wrapper'>
+				<h1>Neural Networks for Good</h1>
+				<p>Welcome to the <span class='bold'>Neural Networks for Good</span> online book! In this book, you will learn everything you need to know to start to create neural networks to solve real world problems.</p>
+				<div class='space'></div>
+				<h2>Before we begin - A note on neural networks</h2>
+				<p>As we enter the information age, we have a tremendous opportunity to solve massive real-world problems using the vast amounts of data collected on almost everything.
+					 Neural networks are a powerful tool in the analysis of that data, as they can find patterns to inform the most difficult solutions effectively
+					 and to allocate resources effectively for those tasks.</p>
+				<p>As an example, machine-learning driven agriculture can drastically increase the productivity of farmers all around the world
+					 by using data to inform the most productive crops to plant, and the best times to plant those crops.</p>
+				<p>If you feel that the content is too difficult for you at any point during this book, simply slow down and take a few seconds to revisit the content from the previous paragraphs.
+					 Since each concept builds on the previous concepts, revisiting the past paragraphs will allow you to better understand key ideas, and better prepare you to learn the current concepts.</p>
+				<div class='space'></div>
+				<h2>Before we begin - Prerequisites</h2>
+				<p>Other than a strong understanding of Python, there are no prerequisites for this book, other than some basic math knowledge (addition, subtraction, etc.). All relevant calculus will be covered within the book. You can learn Python using the following resources:</p>
+				<ul>
+					<li><a target='_blank' href='https://www.tynker.com/'>Coding for Kids | Tynker</a></li>
+					<li><a target='_blank' href='https://www.learnpython.org/'>Learn Python - Free Interactive Python Tutorial</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=H1elmMBnykA'>Derek Banas - Python Tutorial 2019</a></li>
+					<li><a target='_blank' href='https://www.dataquest.io/blog/learn-python-the-right-way/'>Learn Python the Right Way in 5 Steps - Dataquest</a></li>
+				</ul>
+				<div class='space'></div>
+				<h2>Table of Contents</h2>
+				<a href='#ch1'>1. Basic Calculus and Differentiation Rules</a>
+				<a href='#ch2'>2. Neural Network Theory - How Neural Networks Are Structured</a>
+				<a href='#ch3'>3. Ethics</a>
+				<a href='#ch4'>4. Implementing your First Neural Network</a>
+				<a href='#ch5'>5. Robotics</a>
+				<a href='#ch6'>6. Applications of Neural Networks</a>
+				<a href='#ch7'>7. Implementing your Second Neural Network</a>
+				<a href='#ch8'>8. My Challenge to You</a>
+				<div class='space'></div>
+				<div id='ch1'>
+					<h2>Basic Calculus and Differentiation Rules</h2>
+					<p>Here’s a question for you: How does a computer learn to solve a problem? For many, a computer learning to solve a problem shows an image of a human-like robot in your mind. Using this analogy, a computer learning to solve a problem would learn exactly like a human, as in it would try to solve the problem based on past experience, figure out what worked well and what did not work well, and adjust it’s approach. As it turns out, this is exactly how machine learning works at a high level. </p>
+					<img style='max-width:128px' src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Cartoon_Robot.svg/508px-Cartoon_Robot.svg.png' />
+					<p>Now we have to ask ourselves this question: “How can we teach a computer to solve problems like a human?” As it turns out, one of the most efficient ways to do this is to teach the computer to split data. I know that this doesn’t sound related to artificial intelligence, but think of it like this. If the computer can split data, it can tell vanilla ice cream from strawberry ice cream. Let’s say that there is data available on the flavors of ice cream you have purchased in the past, as well as whether the ice cream was bought on a sunny day or a rainy day. Let’s say that we split the data by flavors of ice cream. If we find that most of the vanilla ice cream was bought on rainy days, and most of the strawberry ice cream was bought on sunny days, the computer will find this pattern and will recommend vanilla ice cream to you on rainy days and strawberry ice cream to you on sunny days. </p>
+					<p>A helpful way to split the data is to plot it on a graph, and to use a line to split the data. Some examples of this are listed below. Click on each screen to see how the data is divided. Take note of what you see after you split the data.</p>
+					<canvas id='split-data-horizontal' class='split-data'></canvas>
+					<canvas id='split-data-vertical' class='split-data'></canvas>
+					<canvas id='split-data-diagonal' class='split-data'></canvas>
+					<p>It is helpful for a computer to separate data for us, because computers can analyze thousands to millions of data points very quickly. However, we are now faced with another problem: computers can’t just look at data the way that we might. Computers do not have eyes like we do, therefore they cannot “eyeball” the data. Computers must split the data using math.</p>
+					<p>Here is how we will split the data using math: We will pick a random line at the start, measure how badly it splits the data, move the line such that we decrease the error, and rinse and repeat. In this way, we will eventually have a line that splits the data very well. Click below to show an animation of a line being moved into place.</p>
+					<canvas id='line-moving-animation'></canvas>
+					<p>However, as before, this raises yet another question: How do we know which direction to move our line so that we can split the data best? It seems that we have just pushed our previous problem forward, and we are still dealing with it now. Computers still do not have eyes, so they have no idea which direction they should move the line. Thankfully, we can seek a solution in calculus, a branch of math concerned with functions.</p>
+					<p>In essence, how badly our line splits the data is represented as a “cost” function. In order to split the data better, we will take small steps to decrease our cost function until we approach a local minimum. These small decreases to our cost function represent slight movements to our line. Eventually, when our cost function reaches a local minimum, we will have a line that splits the data “well enough”. To decrease our cost function, we will use its derivative.</p>
+					<p>“Derivative” is a very complex sounding word, but really it’s just the slope of a line at a point. This is very useful to us, because the derivative (slope) of a line at a point always gives the direction of steepest ascent of the function at that point. This means that if the value of the derivative is negative, we should move in the negative x-direction along the function, which in this case, is left. Likewise, if the value of the derivative is positive, we should move in the positive x-direction along the function, which in this case, is right. We move along the x-axis because the x-axis represents the input to the function. Therefore, we can simply subtract the derivative from the current input to the function to move in the direction of steepest descent. I know that this can be a very confusing concept at first, so I have included some examples of different functions below to demonstrate this concept.</p>
+					<canvas id='descending-function-1' class='descending-function'></canvas>
+					<canvas id='descending-function-2' class='descending-function'></canvas>
+					<canvas id='descending-function-3' class='descending-function'></canvas>
+					<canvas id='descending-function-4' class='descending-function'></canvas>
+					<canvas id='descending-function-5' class='descending-function'></canvas>
+					<p>Before we begin learning the very surface-level overview of derivatives necessary to learn about neural networks, it’s helpful to learn some vocabulary surrounding derivatives. When we find the derivative of a function, we say that we have “differentiated” it. Derivatives can also be referred to as “tangent lines”, where the tangent line at a point on a function gives the slope of the function at that point. A “secant line” is a line that gives the slope between two points.</p>
+					<p>Also, I would love to give a huge shout-out to Khan Academy for their clear and interesting explanation of calculus. If you would like to learn more about calculus or get practice at any time, I would encourage you to check out their content at khanacademy.org. For the purposes of this book, however, we will just be covering a very surface level view of differential calculus (the calculus of derivatives).</p>
+					<p>Additionally, if you would like to learn more about the theory behind calculus, I would highly recommend the YouTube channel 3Blue1Brown, as he explains the theory behind calculus in a fun and interesting way.</p>
+					<p>First, we will learn that derivative of any number (without a variable) is zero.</p>
+					<p>For example ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `0` is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `1` is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `2` is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of infinity is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `-1` is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `-2` is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of -infinity is `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;and so on and so forth...
+	</p>
+					<p>Next, we will learn about the power rule. The power rule of differentiation states that the derivative of `x^n` is equal to `n * x^(n-1)`.</p>
+					<p>For example ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x^2` is `2x`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x^3` is `3x^2`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x^3 + x^2` is `3x^2 + 2x`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `4x^4` is `4 * 4x^3 = 16x^3`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `5x^6 + 12x^5` is `30x^5 + 60x^4`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x`, which is equal to `x^1`, is `1 * x^0` which is equal to `1`.
+	</p>
+					<p>What is the derivative of ... 
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`3x^3`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`10x^2`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`20x^4`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`x^8`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`e*x^6`?
+	</p>
+					<p>The next topic of interest is the product rule. The product rule of differentiation states that the derivative of `f(x) * g(x)` is equal to `f’(x) * g(x) + f(x) * g’(x)`.</p>
+					<p>For example ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x * x`, which is equal to `x^2`, is `1 * x + x * 1` which is equal to `2x`, reafirming our previous answer.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x^2 * x`, which is equal to `x^3`, is `2x * x + x^2 * 1` which is equal to `2x^2 + x^2` which is equal to `3x^2`, reafirming our previous answer.
+	</p>
+					<p>What is the derivative of ... 
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`x^2 * x^2`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`10x * 20x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`x * 3x^3`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`x * x * x * x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`80 * x * sqrt(x)`?
+	</p>
+					<p>Our next differentiation law is the quotient rule, which states that the derivative of `(f(x) / g(x))` is equal to `(f’(x) * g(x) - f(x) * g’(x)) / (g(x))^2`</p>
+					<p>For example ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x / x`, which is equal to `1`, is `(1 * x - x * 1) / x^2` which is equal to `0 / x^2` which is equal to `0`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;The derivative of `x^2 / x`, which is equal to `x`, is `(2x * x - x^2 * 1) / x^2` which is equal to `(2x^2 - x^2) / x^2` which is equal to x^2 / x^2 which is equal to `1`.
+	</p>
+					<p>What is the derivative of ... 
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`x^3 / x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`1 / x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`1 / sqrt(x)`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`sqrt(x) / x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`20x^4 / 30x^5`?
+	</p>
+					<p>The final differentiation law we will be covering is the chain rule, which states that the derivative of `f(g(x))` is equal to `f’(g(x)) * g’(x)`.</p>
+					<p>For example ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = x^2` and `g(x) = x^2` is equal to `x^4`, and it's derivative is equal to `2(x^2) * 2x` which is equal to `4x^3`, affirming that the derivative of `x^4` is `4x^3`.
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = x^2` and `g(x) = sqrt(x)` is equal to `x`, and it's derivative is equal to `2(sqrt(x)) * 1 / (2 * sqrt(x))` which is equal to `1`, affirming that the derivative of `x` is `1`.
+	</p>
+					<p>What is the derivative of ...
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = x^2` and `g(x) = x^3`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = x` and `g(x) = sqrt(x)`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = 2x` and `g(x) = 3x`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = x^(1/3)` and `g(x) = x^(1/4)`?
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;`f(g(x))` where `f(x) = 1/x` and `g(x) = 1/x`?
+	</p>
+					<p>It will also be helpful to memorize that the derivative of `e^x` is equal to `e^x`. For more intuition on why this is true and more information on the mathematical constant `e`, you can learn about calculus on Khan Academy.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch2'>
+					<h2>Neural Network Theory - How Neural Networks Are Structured</h2>
+					<p>Neural Networks are composed of neurons, which are decimal values from 0 to 1. These neurons are organized in layers. It’s best to think of a layer as a list of neurons. Here is a (simplified) image which will demonstrate this concept visually.</p>
+					<canvas id='neural-network-image'></canvas>
+					<p>Each neuron’s value is not calculated randomly. The first layer, known as the input layer, has values fed into it. For example, if the neural network was aiming to classify images as either animals or plants, the input layer might contain the grayscale values of every picture in the input image. After the first layer, the other layers are calculated using a weighted sum of the values from the previous layer, plus a number called a bias.</p>
+					<p>What is a weighted sum, you might ask? To calculate the weighted sum, we will take each neuron from the previous layer, and we will multiply that neuron by a weight, a decimal number from 0 to 1. Then, we will add that multiplied value to a total. When we have done this for every neuron in the previous layer, we will divide the total by the number of neurons in the previous layer. Finally, we will add a bias to the total, which is merely a decimal number from 0 to 1. An interactive dataset with a weighted sum has been included below. Try changing the values of the data, the weights, and the bias to see what happens to the weighted sum!</p>
+					<div id='weighted-sum-interactive'>
+						<input type='range' min='0' max='100' value='50' id='w1'></input><span>Weight #1: </span><span id='wsi-w1-val'>50</span><br/>
+						<input type='range' min='0' max='100' value='50' id='v1'></input><span>Value #1: </span><span id='wsi-v1-val'>50</span><br/>
+						<input type='range' min='0' max='100' value='50' id='w2'></input><span>Weight #2: </span><span id='wsi-w2-val'>50</span><br/>
+						<input type='range' min='0' max='100' value='50' id='v2'></input><span>Value #2: </span><span id='wsi-v2-val'>50</span><br/>
+						<input type='range' min='0' max='100' value='50' id='w3'></input><span>Weight #3: </span><span id='wsi-w3-val'>50</span><br/>
+						<input type='range' min='0' max='100' value='50' id='v3'></input><span>Value #3: </span><span id='wsi-v3-val'>50</span><br/>
+						<span>Sum: </span><span id='wsi-sum'></span>
+					</div>
+					<!-- p>*Insert interactive activity*</p -->
+					<p>As you can see, each layer builds on the previous layer using weighted sums. When we get to the output layer, we will make a guess by finding the maximum value from the output layer. For example, in our animal and plant example, there might be two neurons in the output layer so that a high value for the first neuron indicates that the neural network thinks that the image is an animal, and a high value for the second neuron indicates that the neural network thinks that the image is a plant.</p>
+					<p>One handy aspect of this method is that once we select the neuron in the output layer with the highest value, that neurons value gives us a confidence percentage for our guess. For example, if the highest value in the output layer was 0.94, the neural network is 94% confident that it’s guess is correct. Going back to the animal and plant example, if the first neuron in the output layer has a value of 0.97, that means that the neural network thinks that the image is an animal with 97% confidence.</p>
+					<canvas id='output-layer-first-neuron'></canvas>
+					<!-- p>*Insert GIF which shows this here*</p -->
+					<p>The cost function tells us how far the neural network is from the correct answer. The cost function is defined by the sum of the squares of the differences between the value of each neuron in the output layer and what that value should be. I know that the previous sentence was very dense and confusing, so I will provide a concrete example to more clearly explain the cost function.</p>
+					<p>Recall from our animal and plant example that a high value for the first neuron in the output layer meant that the neural network thought that the image was an animal, and that a high value for the second neuron in the output layer meant that the neural network thought that the image was a plant. Let’s say that we fed the neural network an image of an animal. Under these conditions, the value of the first neuron in the output layer should be 1, and the value of the second neuron in the output layer should be 0. Let’s say that the first neuron in the output layer had a value of 0.83 and the second neuron in the output layer had a value of 0.19. The value that the cost function outputs should be `(0.83 - 1)^2 + (0.19 - 0)^2`. If instead the first neuron in the output layer had a value of 0.99 and the second neuron in the output layer had a value of 0.05, the value that the cost function outputs should be `(0.99 - 1)^2 + (0.05 - 0)^2`.</p>
+					<p>We will initialize all of the weights and biases to random numbers, meaning that our network will perform very poorly. We will use the technique mentioned in the first chapter to minimize the cost function. We will compute the derivatives of the cost function with respect to every weight and bias in the entire neural network. These derivatives are known as partial derivatives, and we will treat every other weight and bias as a constant when calculating them. In other words, we will only apply our differentiation rules for the current weight and bias. For more information on partial derivatives, I would recommend the YouTube channel 3Blue1Brown. We will adjust that weight or bias accordingly by subtracting its derivative from it. Before we subtract that weight or bias’s derivative from it, we will first multiply the derivative by the learning rate, a variable that controls how fast the neural network learns. The learning rate is usually small, so that we take small steps when minimizing the cost function so that we do not minimize the cost function too much and overshoot the local minimum.</p>
+					<p>I understand that that entire paragraph was probably very confusing, so please take it slowly and go back to any of the content that you did not understand.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch3'>
+					<h2>Ethics</h2>
+					<p>Here’s an interesting question: All of this stuff about using neural networks to solve problems is all well and good, but why should I care about solving any problems? What if I just want to make the world a better place for myself? I work plenty hard and I deserve it.</p>
+					<p>Making the lives of other people better feels good. It shows the results of something that you have worked hard on, and creates more joy in a world that certainly needs some. However, even disregarding the moral incentive to use neural networks for good, there is a genuine economic incentive.</p>
+					<p>As is beautifully explained in this video by Kurzgesagt, economics are fundamentally driven by supply and demand. Therefore, if there is a large demand for a product, a lot of resources will be invested in making it. Because of this principle, it is in your best interest for there to be prosperity all around the world, because if everyone is on a level playing field socioeconomically, there will be incredible amounts of investment in products and solutions that can benefit everyone, which people from all around the world will contribute to, so that those products and solutions are developed faster.</p>
+					<p>As an example, let’s say that everyone is living existence as a middle-class American. The demand for luxury items, such as sports cars or expensive jewelry, will go up, now that everyone has their basic necessities taken care of. Luxury items will be manufactured with better quality, more efficiency, and a less demanding price (so that these goods can reach everyone). Suddenly, everyone has luxury items. Now, there is a market for curing cancer instead, because everyone has luxury items and basic necessities. As the video explains, there will now be 7 billion people investing in a cure for cancer (because everyone has the resources to), and there will be a vast global network of medical professionals to unearth cures. In a couple of years time, cancer has been all but eliminated!</p>
+					<p>As you can see, it is in everyone’s best interest if everyone does well, so that there will be more demand for better and better products and services, literally enriching everyone’s life.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch4'>
+					<h2>Implementing your First Neural Network</h2>
+					<p>Now it’s time for you to implement your first neural network! You will create a neural network that can recognize handwritten digits. This is a common first program in the world of neural networks, as there is a dataset called the MNIST dataset that has already been made out of thousands of images of handwritten digits and their labels (which digit each image represents). For the purposes of this tutorial, I will be using a program that I built a couple of months ago using a Digital Ocean tutorial, with some modifications and explanations of each piece of code.</p>
+					<p>First you will need to install Python, the programming language that we will use to build our neural network. Python can be installed from it’s website https://www.python.org/. Hover over the “Downloads” tab and click on the download for the latest version of Python (Python 3.8.0, as of November 2019). Once the file has been downloaded, double click on it and follow the directions in the wizard to install Python.</p>
+					<p>Next, you will need to install Tensorflow, the Python library which we will use to program our neural networks. To install Tensorflow, you will want to navigate to their downloads page (https://www.tensorflow.org/install). Follow the directions on their website and type in the commands into either a terminal if you are on macOS / Linux or a command prompt if you are on Windows OS.</p>
+					<p>Now that you have both Python and Tensorflow, it’s time to start writing some code!</p>
+					<p>First, we have to import the Tensorflow module. Normally, we would use this line:</p>
+					<div class='code'>
+	<span class='red'>import</span> tensorflow <span class='red'>as</span> tf
+	</div>
+					<p>However, at this time I am writing this, there is actually a weird bug in tensorflow which causes trouble when using the MNIST dataset. To fix the issue, we must downgrade to tensorflow version 1 using these lines:</p>
+					<div class='code'>
+	<span class='red'>import</span> tensorflow.compat.v1 <span class='red'>as</span> tf
+	<br/>tf.disable_v2_behavior()
+	</div>
+					<p>Next, we need to get the MNIST dataset. Because this was such a pain to do, I have provided the tensorflow <a href='resources/input_data.py' download>input_data.py</a> file for you. We can use this file using the following lines:</p>
+					<div class='code'>
+	<span class='red'>import</span> input_data
+	<br/>mnist <span class='blue'>=</span> input_data.read_data_sets(<span class='yellow'>'MNIST_data/'</span>, one_hot<span class='blue'>=</span><span class='green'>True</span>)
+	</div>
+					<p>As mentioned in our theory of neural networks section, we will divide our data into training data (used to train the neural network) and testing data (used to test the neural network’s performance). We will also have a third category called validation data. Validation data is used by tensorflow to figure out how well the network is performing while it is still being trained. The following lines define variables for the number of example data being used for each category.</p>
+					<div class='code'>
+	n_train <span class='blue'>=</span> mnist.train.num_examples
+	<br/>n_validation <span class='blue'>=</span> mnist.validation.num_examples
+	<br/>n_test <span class='blue'>=</span> mnist.test.num_examples
+	</div>
+					<p>Next, we will need to define the structure of our neural network. Our neural network will have an input layer, 3 hidden layers, and an output layer. The input layer will have enough neurons to store a 28x28 image (784 neurons), the 3 hidden layers will each (somewhat arbitrarily) have 512 neurons, and the output layer will have 10 neurons (to represent which digit the network thinks the input data is, 0 - 9).</p>
+					<div class='code'>
+	n_input <span class='blue'>=</span> <span class='purple'>28</span> <span class='blue'>*</span> <span class='purple'>28</span> 
+	<br/>n_hidden_1 <span class='blue'>=</span> <span class='purple'>512</span>
+	<br/>n_hidden_2 <span class='blue'>=</span> <span class='purple'>512</span>
+	<br/>n_hidden_3 <span class='blue'>=</span> <span class='purple'>512</span>
+	<br/>n_output <span class='blue'>=</span> <span class='purple'>10</span>
+	</div>
+					<p>The learning rate of our neural network (covered in the chapter on neural network theory) will be very small so that our network trains slowly and confidently.</p>
+					<div class='code'>
+	learning_rate <span class='blue'>=</span> <span class='purple'>0.0001</span>
+	</div>
+					<p>We will be training our network in “epochs”, which are large sets of images. We will have 10,000 epochs, each with 128 images.</p>
+					<div class='code'>
+	n_epochs <span class='blue'>=</span> <span class='purple'>10000</span>
+	<br/>batch_size <span class='blue'>=</span> <span class='purple'>128</span>
+	</div>
+					<p>Next we will define the “dropout rate” of our neural network. The dropout rate is a measure of how often a neural network will ignore a weight or bias during training to avoid overtraining that weight or bias (to avoid overfitting the neural network to the training data and to make sure that it can generalize to new data). We will initialize this value to 0.5 to allow this to happen half of the time. </p>
+					<div class='code'>
+	dropout <span class='blue'>=</span> <span class='purple'>0.5</span>
+	</div>
+					<p>Now we will define placeholder variables that will eventually hold our images, labels, and probability of keeping a specific weight or bias.</p>
+					<div class='code'>
+	images <span class='blue'>=</span> tf.placeholder(<span class='yellow'>'float'</span>, [<span class='green'>None</span>, n_input])
+	<br/>labels <span class='blue'>=</span> tf.placeholder(<span class='yellow'>'float'</span>, [<span class='green'>None</span>, n_output])
+	<br/>keep_prob <span class='blue'>=</span> tf.placeholder(tf.float32)
+	</div>
+					<p>Next, we will define two dictionaries, for weights and biases respectively. The weights dictionary will contain matrices, or grids, of decimal values, each from -2.0 to 2.0. The biases dictionary will contain lists populated by the value 0.1</p>
+					<!-- *image of a matrix* -->
+					<div class='code'>weights <span class='blue'>=</span> {
+	<br/>&nbsp;&nbsp;<span class='yellow'>'w1'</span>:tf.Variable(tf.truncated_normal([n_input, n_hidden_1], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'w2'</span>:tf.Variable(tf.truncated_normal([n_hidden_1, n_hidden_2], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'w3'</span>:tf.Variable(tf.truncated_normal([n_hidden_2, n_hidden_3], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'out'</span>:tf.Variable(tf.truncated_normal([n_hidden_3, n_output], stddev<span class='blue'>=</span><span class='purple'>0.1</span>))
+	<br/>}
+	<br/>
+	<br/>biases <span class='blue'>=</span> {
+	<br/>&nbsp;&nbsp;<span class='yellow'>'b1'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_1])),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'b2'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_2])),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'b3'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_3])),
+	<br/>&nbsp;&nbsp;<span class='yellow'>'out'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_output]))
+	<br/>}
+	</div>
+					<p>Now we will calculate each layer using matrix multiplications and additions. Matrix multiplication (for our purposes) is the process of calculating multiple weighted sums of the first matrix, with each row of the second matrix acting as the weights for that sum. In this way, matrix multiplication results in a matrix with a width of one element, where each element is a weighted sum. Matrix addition (for our purposes) is the process of adding each element in one matrix with the corresponding element in the other matrix. If you would like to learn more about matrices and their operations, you can learn about them on Khan Academy.</p>
+					<div class='code'>
+	layer_1 <span class='blue'>=</span> tf.add(tf.matmul(images, weights[<span class='yellow'>'w1'</span>]), biases[<span class='yellow'>'b1'</span>])
+	<br/>layer_2 <span class='blue'>=</span> tf.add(tf.matmul(layer_1, weights[<span class='yellow'>'w2'</span>]), biases[<span class='yellow'>'b2'</span>])
+	<br/>layer_3 <span class='blue'>=</span> tf.add(tf.matmul(layer_2, weights[<span class='yellow'>'w3'</span>]), biases[<span class='yellow'>'b3'</span>])
+	<br/>layer_drop <span class='blue'>=</span> tf.nn.dropout(layer_3, keep_prob)
+	<br/>output_layer <span class='blue'>=</span> tf.matmul(layer_3, weights[<span class='yellow'>'out'</span>]) + biases[<span class='yellow'>'out'</span>]
+	</div>
+					<p>Notice that using matrix multiplications and additions, we are able to accomplish the structure discussed in the chapter about neural network theory. The activation of each neuron in layer 1 is calculated to be a weighted sum of the values of the neurons in the input layer (images), plus biases. This is true for all of the layers.</p>
+					<p>We will define an optimizer using an algorithm called softmax cross entropy with logits, and the optimizer we will use will be the Adam optimizer. For more information on softmax cross entropy with logits and the Adam optimizer, be sure to check out these links:</p>
+					<a href='https://deepnotes.io/softmax-crossentropy'>https://deepnotes.io/softmax-crossentropy</a>
+					<a href='https://peterroelants.github.io/posts/cross-entropy-softmax/'>https://peterroelants.github.io/posts/cross-entropy-softmax/</a>
+					<a href='https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/'>https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/</a>
+					<a href='https://towardsdatascience.com/adam-latest-trends-in-deep-learning-optimization-6be9a291375c'>https://towardsdatascience.com/adam-latest-trends-in-deep-learning-optimization-6be9a291375c</a>
+					<div class='code'>
+	cross_entropy <span class='blue'>=</span> tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels<span class='blue'>=</span>labels, logits<span class='blue'>=</span>output_layer))
+	<br/>train_step <span class='blue'>=</span> tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
+	<br/>
+	<br/>correct_pred <span class='blue'>=</span> tf.equal(tf.argmax(output_layer, <span class='purple'>1</span>), tf.argmax(labels, <span class='purple'>1</span>))
+	<br/>accuracy <span class='blue'>=</span> tf.reduce_mean(tf.cast(correct_pred, tf.float32))
+	</div>
+					<p>Finally, we will run our program using the following lines of code. We will create a session variable and run it to begin training our network. For each datum, we will print out the current iteration number, our network’s loss (the weights and biases that were dropped out), and our network’s accuracy on the training images. After training is completed, we will test the network on all of the test images, printing out the average accuracy at the end. </p>
+					<div class='code'>
+	init <span class='blue'>=</span> tf.global_variables_initializer()
+	<br/>sess <span class='blue'>=</span> tf.Session()
+	<br/>sess.run(init)
+	<br/>
+	<br/><span class='grey'># train on mini batches</span>
+	<br/><span class='red'>for</span> i <span class='blue'>in</span> <span class='green'>range</span>(n_epochs):
+	<br/>&nbsp;&nbsp;batch_x<span class='red'>,</span> batch_y <span class='blue'>=</span> mnist.train.next_batch(batch_size)
+	<br/>&nbsp;&nbsp;sess.run(train_step,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;feed_dict<span class='blue'>=</span>{
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;images: batch_x,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels: batch_y,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keep_prob: <span class='purple'>1.0</span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;}
+	<br/>&nbsp;&nbsp;)
+	<br/>
+	<br/>&nbsp;&nbsp;<span class='grey'># print loss and accuracy (per minibatch)</span>
+	<br/>&nbsp;&nbsp;<span class='red'>if</span> i <span class='blue'>%</span> <span class='purple'>100</span> <span class='blue'>==</span> <span class='purple'>0</span>:
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;minibatch_loss, minibatch_accuracy <span class='blue'>=</span> sess.run(
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cross_entropy, accuracy],
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;feed_dict<span class='blue'>=</span>{
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;images: batch_x,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels: batch_y,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keep_prob: <span class='purple'>1.0</span>
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;)
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>print</span>(
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'Iteration'</span>,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(i),
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'\t| Loss ='</span>,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(minibatch_loss),
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'\t| Accuracy ='</span>,
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(minibatch_accuracy)
+	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
+	<br/>
+	<br/><span class='grey'># test the neural network and print it's accuracy.</span>
+	<br/>test_accuracy <span class='blue'>=</span> sess.run(accuracy, feed_dict<span class='blue'>=</span>{images: mnist.test.images, labels: mnist.test.labels, keep_prob: <span class='purple'>1.0</span>})
+	<br/><span class='green'>print</span>(<span class='yellow'>'\nAccuracy on test set:'</span>, test_accuracy)
+	</div>
+					<p>And just like that, you have written your first neural network! If anything was unclear, don’t hesitate to refer back to the previous chapter or other resources to better understand the concepts. Also, give yourself a pat on the back! You have learned A LOT of content and successfully applied it to a real world problem. In the next chapter, we will look at more real-world applications of neural networks through the lense of robotics.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch5'>
+					<h2>Robotics</h2>
+					<p>Robots provide a way for neural networks to interact with the physical world. When using neural networks to solve real-world problems, a strong understanding of robotics is crucial. As an example, a company called Starship technologies in Mountain View, California has created a robot which can autonomously (without the help of a human) deliver food. The robot itself is a short box-like structure that is close to the ground to optimize balance. It can open up to carry food. It stays on the sidewalk but sometimes crosses the road, and uses an image recognition algorithm to detect obstacles (buildings, street signs, pedestrians, etc.). As you can see, robots provide a vehicle for artificial intelligence (pun intended). </p>
+					<p>Another application of robotics and neural network is prosthetic limbs. If neural networks are allowed to interface with the human brain (read-only access to prevent modification of the human brain), they could be trained on the brain’s neurons’ electrical signals when a person who is disabled attempts to move an immobile limb. Then, those signals will be detected by the neural network from then on and whenever those signals or similar signals are detected, the neural network will activate the prosthetic limb accordingly. This means that even those who are paralyzed from the <span class='bold'>neck down</span> could move again.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch6'>
+					<h2>Applications of Neural Networks</h2>
+					<p>Neural Networks are being used to solve many problems today, everything from monitoring the security of buildings to flying planes. However, for the purposes of this book, I will be focusing on the implications of neural networks in making the world a better place. Specifically, I want to give you some ideas about the implications of neural networks in reducing inequality, and I want to help you implement a neural network that will benefit the world of medicine. </p>
+					<p>Although I do not want to make this book about philosophy, I do want to discuss the implications of a Universal Basic Income and why it may be worthwhile considering it. To be clear, I respect the opinions of all those who are unsure that the costs of a Universal Basic Income match the benefits provided by one. However, I would love for you to consider that it could be a possible solution to poverty, even if the probability of a Universal Basic Income being feasible is incredibly low. </p>
+					<p>For those of you who do not know, a Universal Basic Income is an untaxed recurring payment provided to every citizen for any use of their choice. The concept behind a Universal Basic Income is certainly noble, and if applied correctly, could loosen the tight constraints of poverty. However, a huge flaw in the Universal Basic Income is its tremendous cost. As an example, for the United States, a country with a population of approximately 329.96 million at the time this is being written (November 2019), a Universal Basic Income of 1000 U.S. Dollars per month would set the government back 329.96 billion dollars per month! It should be noted that that amount is a slight overestimate, because citizens who are not even a year old, for example, may be provided a smaller amount. However, this is still a devastating blow to the United States government’s budget.</p>
+					<p>To fund this immense project, we can turn to neural networks. As we pair neural networks with robotics, we can increase productivity in the agricultural and construction sectors, to provide reliable meals and living spaces for everyone. In this way, every citizen can be paid a “Universal Basic Income” not through money but rather through provisional and residential security (every citizen gets free meals and living spaces).</p>
+					<p>I know that this sounds vague and improbable, so I would like to provide some concrete examples of the applications of machine learning and neural networks. In agriculture, we could gather data or use existing data on products harvested from different areas of farmland and train a neural network on those data points as well as the annual success of harvests from each area of farmland. Thus, that neural network would output its guess as to the success rate of a harvest this year based on where that crop is being grown, and it would also give us a percent confidence that its guess is correct for each portion of farmland.</p>
+					<p>We could also use neural networks to serve the food. Although cooking is a tough task to automate, we can make it easier by breaking it down into smaller parts. First, the produce would be shipped to centers all across the country via self-driving trucks or boats, using neural networks to detect lanes and other cars. One the produce got to its destination, machines would prepare it according to some predefined recipes. The machines would use image recognition algorithms to detect where fruits, vegetables, and meats are, would use different image recognition algorithms to move around based on the space available, would be able to communicate with the other robotic cooks instantaneously via a local network, and would always correctly remember the timings for heating everything! In order to avoid displacing the jobs of chefs, we would stress the importance of human connection to those in the restaurant when enjoying our meals, and show the effort chefs put into their food. However, robotics and artificial intelligence would serve as a backbone for a population in need of food.</p>
+					<p>Additionally, we could build neural networks to analyze spaces where we can build homes and extend cities. Trained by thousands or millions of images of population density data, forestation data, and satellite images, the neural networks would show areas of low forestation and population where humans could expand without harming the environment. This would provide homes for the homeless, and provide a safety net for all in terms of shelter.</p>
+					<p>To be clear, I am nowhere near an economist, nor do I have experience working on welfare projects of any kind. I wanted to talk about Universal Basic Income to provide some theories for those of you who are interested in Universal Basic Income, and to provide examples of real-world applications of neural networks and show how neural networks can be used to solve tough problems more effectively for the rest of you.</p>
+				</div>
+				<div class='space'></div>
+				<div id='ch7'>
+					<h2>Implementing your Second Neural Network</h2>
+					<p>As yet another example of the capabilities of neural networks, Oluwafemi Tairu has built a neural network capable of detecting plant disease detection using convolutional neural networks. I would highly recommend checking out his medium post in which he discusses his program, Plant AI, and shows you how to build it. As an exercise for getting better at building neural networks, I would highly recommend trying to rebuild Plant AI on your own and seeing what you would change. </p>
+				</div>
+				<div class='space'></div>
+				<div id='ch8'>
+					<h2>My Challenge to You</h2>
+					<p>Congratulations on finishing this book! Over the course of this book, you have learned about gradient descent, neural networks, robotics, and ethics. You have learned about the possibilities of neural networks as well as their drawbacks. You have created two neural networks of your own, allowing you to apply what you have learned to real-world problems. </p>
+					<p>As you continue your journey with machine learning, I would like you to take a moment and reflect on the ethics and applications of neural networks you have learned in this book, and think about how you can make your own unique positive impact in this world. Use your knowledge to help others, and pass on what you have learned in your own way. </p>
+				</div>
+			</div>
+		</div>
+		<div class='screen' id='game-design-content'>
+			<button class='back'>Back</button>
+			<div class='content-wrapper'>
+				<h1>Welcome to the Game Design Tutorial!</h1>
+				<p>In this tutorial, I will walk you through building a simple pong game using HTML, CSS, and JavaScript. In the process, you will learn about the structure of video games and how they are created, and then I will provide some additional resources at the end, so that you can learn how to build other video games. </p>
+				<p>Before using this tutorial, you should know some basic HTML, CSS, and JavaScript. To learn about these topics, I have provided some resources here. </p>
+				<ul>
+					<li><a target='_blank' href='https://www.tynker.com/'>Coding for Kids | Tynker</a></li>
+					<li><a target='_blank' href='https://www.w3schools.com/html/html_scripts.asp'>W3schools - HTML Javascript</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=wrdR5Su_Stg'>The absolute basics of HTML, CSS and JavaScript - Christopher Okhravi</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=fju9ii8YsGs'>JavaScript Tutorial - Derek Banas</a></li>
+				</ul>
+				<p>Let’s begin!</p>
+				<p>First, we will need to setup a simple HTML document. </p>
+				<span class='italic'>index.html</span>
+				<div class='code'>
+&lt;!doctype html&gt;<br/>
+&lt;html&gt;<br/>
+&nbsp;&nbsp;&lt;head&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset=&apos;utf-8&apos; &bsol;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Pong&lt;&bsol;title&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;link rel=&apos;stylesheet&apos; href=&apos;style.css&apos; type=&apos;text&bsol;css&apos; &bsol;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src=&apos;main.js&apos; type=&apos;text&bsol;javascript&apos;&gt;&lt;&bsol;script&gt;<br/>
+&nbsp;&nbsp;&lt;&bsol;head&gt;<br/>
+&nbsp;&nbsp;&lt;body&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas id=&apos;canvas&apos;&gt;&lt;&bsol;canvas&gt;<br/>
+&nbsp;&nbsp;&lt;&bsol;body&gt;<br/>
+&lt;&bsol;html&gt;<br/>
+				</div>
+				<p>This HTML document will set our character set to UTF-8 (don’t worry about that for now), set the webpage title to “Pong”, link our CSS stylesheet and use our JavaScript file. Lastly, we will create a canvas element in the body. </p>
+				<p>Next, we will setup a simple CSS stylesheet. </p>
+				<span class='italic'>style.css</span>
+				<div class='code'>
+html, body {<br />
+&nbsp;&nbsp;margin:0;<br />
+&nbsp;&nbsp;padding:0;<br />
+&nbsp;&nbsp;width:100%;<br />
+&nbsp;&nbsp;height:100%;<br />
+&nbsp;&nbsp;overflow:hidden;<br />
+}<br />
+				</div>
+			<p>The only reason that we use CSS in this game is to make sure that the html and body elements are fullscreen, and that any margin, padding, and overflow is removed, so that our game is truly fullscreen. </p>
+				<p>Now, we can start coding in JavaScript. First, we will create a window.onload function, which will be called when the page loads. Inside of this function, we will create the variables and functions necessary to start our game. First, we will initialize our canvas by getting it from the HTML document. Then, we will create a 'context' from that canvas, which can be used to draw on the canvas. This 'context' acts like an artist for our game. Next, we will declare how many frames per second our game will have. This number defines the number of times that the game will update and redraw per second, which for our purposes, will be 30. We will also create three variables called paddle1, paddle2, and ball, which will be initialized from classes that we will build later. Classes are like blueprints, they give your web browser instructions on how to build custom objects. This will be covered in more detail later. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+window.onload = function() {<br />
+&nbsp;&nbsp;var canvas = document.getElementById('canvas');<br />
+&nbsp;&nbsp;var context = canvas.getContext('2d');<br />
+&nbsp;&nbsp;var fps = 30;<br />
+&nbsp;&nbsp;var paddle1 = new Paddle(20, window.innerHeight / 2 - 40);<br />
+&nbsp;&nbsp;var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight / 2 - 40, ai=true);<br />
+&nbsp;&nbsp;var ball = new Ball(window.innerWidth / 2 - 10, window.innerHeight / 2 - 10);<br />
+}<br />
+				</div>
+				<p>Next, we will define some functions inside of window.onload. The first will be a resize function. This function will be called at the start of the game and whenever the window is resized. This function will set the canvas width and height to the full width and height available inside the window. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function resize() {<br/>
+&nbsp;&nbsp;canvas.width = window.innerWidth;<br/>
+&nbsp;&nbsp;canvas.height = window.innerHeight;<br/>
+}<br/>
+				</div>
+				<p>We will also define empty (for now) update and render functions.</p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function update() {<br/>
+<br/>
+}<br/>
+<br/>
+function render() {<br/>
+<br/>
+}<br/>
+				</div>
+				<p>Then, we will define a tick function. The tick function will be called every frame (30 times per second). The tick function will call the update and render functions in that order. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function tick() {<br/>
+&nbsp;&nbsp;update();<br/>
+&nbsp;&nbsp;render();<br/>
+}<br/>
+				</div>
+				<p>Finally, we will define and call a start function. The start function will start the game by calling the resize function, setting the window’s onresize event handler to our custom resize function, and setting up the tick function to be called every frame (30 times per second) using setInterval. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function start() {<br/>
+&nbsp;&nbsp;resize();<br/>
+&nbsp;&nbsp;window.onresize = resize;<br/>
+&nbsp;&nbsp;setInterval(tick, 1000 / fps);<br/>
+}<br/>
+<br/>
+start();<br/>
+				</div>
+				<p>Now, we will define a utility function called randomInt. randomInt generates a random number between its two arguments, min and max, including min and excluding max. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function randomInt(min, max) {<br/>
+&nbsp;&nbsp;return min + Math.floor(Math.random() * (max - min));<br/>
+}<br/>
+				</div>
+				<p>Next, we will define two custom classes: Ball and Paddle. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+class Ball {<br/>
+<br/>
+}<br/>
+<br/>
+class Paddle {<br/>
+<br/>
+}<br/>
+				</div>
+				<p>First, we will concentrate on the ball class. As mentioned before classes are templates for building custom objects. These custom objects can have functions defined under them, as well as variables defined under them. These variables are called properties, and the functions are called methods. One special method for classes is the constructor, which is called when a new object is created from the class. The constructor is used to set up the new object, referring to it as this, which is the standard for methods of a class. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+class Ball {<br/>
+&nbsp;&nbsp;constructor(x, y) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.originalX = x;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.originalY = y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = x;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.width = 20;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.height = 20;<br/>
+<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.xVelocity = randomInt(-5, 5);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.yVelocity = randomInt(-5, 5);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;if(this.xVelocity === 0) { this.xVelocity = randomInt(1, 5); }<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+				</div>
+				<p>This constructor takes two arguments, x and y. It sets up the originalX and originalY variables to x and y respectively (to keep track of them so that we can reset the ball). It sets its own x and y variables to x and y respectively. It sets both its width and height to 20 pixels. Then, it sets both this.xVelocity and this.yVelocity to random integers (no decimal point) from -5 to 5. If the xVelocity ends up being 0, we set it to a random integer from 1 to 5 (to make sure that the ball moves to either side, instead of just bouncing in the middle). </p>
+				<p>NOTE: do this part</p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+update(paddle1, paddle2) {<br/>
+&nbsp;&nbsp;this.x += this.xVelocity;<br/>
+&nbsp;&nbsp;this.y += this.yVelocity;<br/>
+<br/>
+&nbsp;&nbsp;if(this.y &lt; 0) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = 0;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.yVelocity *= -1;<br/>
+&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else if(this.y + this.height &gt; window.innerHeight) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = window.innerHeight - this.height;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.yVelocity *= -1;<br/>
+&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;if(this.x &lt; paddle1.x + paddle1.width &amp;&amp; this.x &gt; paddle1.x &amp;&amp; paddle1.y &lt; this.y + this.height &amp;&amp; paddle1.y + paddle1.height &gt; this.y) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = paddle1.x + paddle1.width;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.xVelocity *= -1;<br/>
+&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else if(this.x + this.width &gt; paddle2.x &amp;&amp; this.x + this.width &lt; paddle2.x + paddle2.width &amp;&amp; paddle2.y &lt; this.y + this.height &amp;&amp; paddle2.y + paddle2.height &gt; this.y) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = paddle2.x - this.width;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.xVelocity *= -1;<br/>
+&nbsp;&nbsp;}<br/>
+<br/>
+&nbsp;&nbsp;if(this.x &lt; 0) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = this.originalX;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = this.originalY;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;paddle2.score += 1;<br/>
+&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else if(this.x + this.width &gt; window.innerWidth) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = this.originalX;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = this.originalY;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;paddle1.score += 1;<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+				</div>
+				<p>Finally, our Ball class has a render function. This render function simply draws a white square at x, y, with dimensions 20x20. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+render(canvas, context) {<br/>
+&nbsp;&nbsp;context.fillStyle = 'white';<br/>
+&nbsp;&nbsp;context.fillRect(this.x, this.y, this.width, this.height);<br/>
+}<br/>
+				</div>
+				<p>Now, we can focus on the Paddle class. Like the Ball class, the Paddle class has a constructor. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+class Paddle {<br/>
+&nbsp;&nbsp;constructor(x, y, ai=false) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.x = x;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.y = y;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.width = 20;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.height = 80;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.ai = ai;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;this.score = 0;<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+				</div>
+				<p>The Paddle class, takes an x position, a y position, and whether or not it is an artificially intelligent player as arguments. The x position and y position are not new from the previous class, but the ai argument is. If the ai argument is set to true, the paddle will move on its own to play the game. By default, the ai argument is set to false. The constructor will set this.x and this.y to x and y respectively, set this.width and this.height to 20 and 80 respectively, set this.ai to ai, and set this.score to 0. </p>
+				<p>The Paddle class also has an update method. Essentially, the update method is only used if this.ai is set to true. If so, it will calculate where the vertical center of the ball is and calculate where the vertical center of this paddle is. If the vertical center of the ball is below the vertical center of this paddle, it will move downwards. Otherwise, if the vertical center of the ball is above the vertical center of the paddle, it will move upwards. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+update(ball) {<br/>
+&nbsp;&nbsp;if(this.ai) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;var ball_center_y = ball.y + ball.height &bsol; 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;var this_center_y = this.y + this.height &bsol; 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;if(ball_center_y &gt; this_center_y) { this.y += 3; }<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;else if(ball_center_y &lt; this_center_y) { this.y -= 3; }<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+				</div>
+				<p>The Paddle class’s final method is a render method. The render method draws a rectangle using the paddle’s x position, y position, width, and height. Then, it tells the context to center any text it draws on the x and y axis, and sets the font to 24px Arial. Finally, it writes the score on the top of the appropriate side. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+render(canvas, context) {<br/>
+&nbsp;&nbsp;context.fillStyle = 'white';<br/>
+&nbsp;&nbsp;context.fillRect(this.x, this.y, this.width, this.height);<br/>
+<br/>
+&nbsp;&nbsp;context.textAlign = 'center';<br/>
+&nbsp;&nbsp;context.textBaseline = 'middle';<br/>
+&nbsp;&nbsp;context.font = '24px Arial';<br/>
+&nbsp;&nbsp;if(this.x &lt; window.innerWidth &bsol; 2) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &bsol; 4, window.innerHeight &bsol; 8);<br/>
+&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &ast; 3 &bsol; 4, window.innerHeight &bsol; 8);<br/>
+&nbsp;&nbsp;}<br/>
+}<br/>
+				</div>
+				<p>Now, we can go back to the three variables created in window.onload: paddle1, paddle2, and ball. We can now understand what these variables are. These variables are created using the corresponding class, and the arguments provided are for the constructor of that class. For example, ball is a Ball object with an x position of the horizontal center of the screen (window.innerWidth &bsol; 2) - 10 pixels (to account for the width of the ball), and a y position of the vertical center of the screen (window.innerHeight &bsol; 2) - 10 pixels (to account for the height of the ball). </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+var paddle1 = new Paddle(20, window.innerHeight &bsol; 2 - 40);
+var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight &bsol; 2 - 40, ai=true);
+var ball = new Ball(window.innerWidth &bsol; 2 - 10, window.innerHeight &bsol; 2 - 10);
+				</div>
+				<p>Next, we will define another function inside of window.onload: keydown. This function is called whenever any key is pressed. It will check if the keycode is 38, which corresponds to the up arrow key. If so, it will move the left paddle up by 5 pixels, and use Math.max to make sure that the paddle does not move off of the screen. Similarly if the keycode is 40 (down arrow key), it will move the right paddle down by 5 pixels, and use Math.min to make sure that the paddle does not move off of the screen. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function keydown(ev) {<br/>
+&nbsp;&nbsp;if(ev.keyCode === 38) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;paddle1.y = Math.max(paddle1.y - 5, 0);<br/>
+&nbsp;&nbsp;}<br/>
+&nbsp;&nbsp;else if(ev.keyCode === 40) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;paddle1.y = Math.min(paddle1.y + 5, window.innerHeight - paddle1.height);<br/>
+&nbsp;&nbsp;}
+}<br/>
+				</div>
+				<p>In the start function, we will tell the window to execute the keydown function whenever a key is pressed down. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>window.onkeydown = keydown;</div>
+				<p>We will fill in the update function now, by calling the update functions of ball, paddle1, and paddle2 in that order, with the appropriate arguments. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function update() {<br/>
+&nbsp;&nbsp;ball.update(paddle1, paddle2);<br/>
+&nbsp;&nbsp;paddle1.update(ball);<br/>
+&nbsp;&nbsp;paddle2.update(ball);<br/>
+}<br/>
+				</div>
+				<p>We will also fill in the render function now, by first setting the color to black and drawing a rectangle over the entire screen to clear it, and then calling the render methods of ball, paddle1, and paddle2 in that order, with the appropriate arguments. </p>
+				<span class='italic'>main.js</span>
+				<div class='code'>
+function render() {<br/>
+&nbsp;&nbsp;context.fillStyle = 'black';<br/>
+&nbsp;&nbsp;context.fillRect(0, 0, canvas.width, canvas.height);<br/>
+&nbsp;&nbsp;ball.render(canvas, context);<br/>
+&nbsp;&nbsp;paddle1.render(canvas, context);<br/>
+&nbsp;&nbsp;paddle2.render(canvas, context);<br/>
+}<br/>
+				</div>
+				<p>And now, we have our completed game! </p>
+				<p>TODO: code for the entire game</p>
+				<p>To conclude, I hope you have found my tutorial helpful in walking through a pong game and learning about game design. Here are some resources to learn more about game development. Some of them are for Python programming specifically, but they will cover the relevant Python knowledge either in the series itself, or in another section on their Youtube channel if applicable. </p>
+				<ul>
+					<li><a target='_blank' href='https://www.tynker.com/'>Coding for Kids | Tynker</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=iGQv7bR6zCQ&list=PLDFB7FFF90EE6F0C1'>Python 3 Tutorial - Goran Milovanovic</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=ujOTNg17LjI'>PyGame with Python 3 Game Development - Sentdex</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class='screen' id='assembly-language-content'>
+			<button class='back'>Back</button>
+			<div class='content-wrapper'>
+				<h1>Welcome to the Linux Intel x86-64 Assembly Language Tutorial!</h1>
+				<p>In this tutorial, you will learn the basics of Ubuntu Intel 64-Bit Assembly Language, but also through learning the syntax of this specific program language, you will learn enough to start programming in other assembly languages, provided that you learn the syntax for assembly language on those systems. </p>
+				<h3>What is Assembly Language?</h3>
+				<p>Assembly language is a programming language that is about one step above machine code, the binary code that is executed by your computer directly. This means that assembly language is a fairly low-level programming language. Essentially, in assembly language, you do all memory-management yourself, meaning that you reserve space for variables in your program using a block of data that represents memory on your computer. </p>
+				<h3>Registers</h3>
+				<p>Registers are a way of representing small amounts of data. You access registers via their names, and each register can carry either 8, 16, 32, or 64 bits of data. The University of Las Vegas at Nevada provides a good table for understanding the sizes and names of x86-64 registers in assembly language, which I have included below. You can learn more about assembly language and registers via their PDF linked <a target='_blank' href='http://www.egr.unlv.edu/~ed/assembly64.pdf'>here</a>. </p>
+				*pdf*
+				<h3>Parts of an assembly language program</h3>
+				<p>There are three sections to an assembly language program:</p>
+				<p>The .text section represents what we would traditionally think of as a program, a series of instructions that handle moving data around, conditionals, jumping around in the program, etc. </p>
+				<p>The .data section represents static data declared in the program. You can think of these data as constants. </p>
+				<p>The .bss section represents dynamic data reserved by the program. These data are variables. </p>
+				<h3>Assembly Language syntax</h3>
+				<p>Every statement in assembly language (.text section) has the following form: </p>
+				<div class='code'>OPCODE OPERANDS</div>
+				<p>“Opcode” stands for operator code. Opcodes are instructions which tell the assembler, the compiler (translator) for assembly language, what the program intends to do in this statement. The datum/data that the opcode acts on is/are the operand(s). Here is an example of an assembly language statement:</p>
+				<div class='code'>mov eax, 1</div>
+				<p>This statement “moves” the value of 1 into the eax register. </p>
+				<p>Here are some examples of other common assembly language opcodes and their operands. </p>
+				<div class='code'>add &lt;dest&gt;, &lt;src&gt;</div>
+				<p>The add instruction adds the value in src to the value in dest, and the result is in dest. </p>
+				<div class='code'>sub &lt;dest&gt;, &lt;src&gt;</div>
+				<p>The sub instruction subtracts the value in src from the value in dest, and the result is in dest. </p>
+				<div class='code'>imul &lt;dest&gt;, &lt;src&gt;</div>
+				<p>The imul instruction stands for integer multiplication. It multiplies the integer in dest with the integer in src, and the result is in dest. </p>
+				<div class='code'>idiv &lt;dest&gt;, &lt;src&gt;</div>
+				<p>The idiv instruction stands for integer division. It divides the integer in dest from the integer in src, and the result is in dest. </p>
+				<div class='code'>neg &lt;src&gt;</div>
+				<p>The neg instruction negates the number in src, and the result is in src. The negation is done using a two’s complement, which you can learn more about on <a target='_blank' href='https://en.wikipedia.org/wiki/Two%27s_complement'>Wikipedia</a>. </p>
+				<div class='code'>call &lt;label&gt;</div>
+				<p>The call argument goes to the label “label”, keeping track of where “label” was called from, so that a return will return to the original position in the program. </p>
+				<div class='code'>ret</div>
+				<p>Speaking of which, the ret instruction stands for return, and when called, it will return from the label that was called using call. </p>
+				<div class='code'>push &lt;data&gt;</div>
+				<p>The space in the registers is limited, too limited for an assembly language program to do very much, which is where the stack comes in handy. The stack is a block of data, and push is an instruction that will add data to the stack, and move the stack pointer (esp), used to keep track of where the next write should be. </p>
+				<div class='code'>pop &lt;register&gt;</div>
+				<p>The stack works like a stack of papers, meaning that you can also take data from it. This is where the pop instruction comes in handy, as it will move the stack pointer (esp) in the other direction, effectively allowing the data to be overwritten with another push, and placing the now ignored data in the indicated register. </p>
+				<div class='code'>cmp &lt;value1&gt;, &lt;value2&gt;</div>
+				<p>The cmp instruction compares the two provided values (values are provided either using registers, a location on the stack, or actual raw data). The result of the comparison is stored in a variety of usually unused registers. </p>
+				<div class='code'>jmp &lt;label&gt;</div>
+				<p>The jmp instruction is like a call that cannot be returned from. It simply “jumps” to a label, which is a named point in the code. </p>
+				<div class='code'>jl &lt;label&gt;</div>
+				<p>The jl instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was less than value2. </p>
+				<div class='code'>jle &lt;label&gt;</div>
+				<p>The jle instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was less than or equal to value2. </p>
+				<div class='code'>jg &lt;label&gt;</div>
+				<p>The jg instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was greater than value2. </p>
+				<div class='code'>jge &lt;label&gt;</div>
+				<p>The jge instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was greater than or equal to value2. </p>
+				<div class='code'>je &lt;label&gt;</div>
+				<p>The je instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was equal to value2. </p>
+				<div class='code'>jne &lt;label&gt;</div>
+				<p>The jne instruction is like the jmp instruction, except for that it also looks at the results of the most recent cmp, and will only execute the jump if value1 was not equal to value2. </p>
+				<h3>Sample Assembly Language Program</h3>
+				<p>Here is a hello world program written in x86-64 assembly language on an Ubuntu computer running an Intel processor. Take note of what you see here that mentioned earlier (opcodes, sections, etc.):</p>
+				<div class='code'>
+section .text<br/>
+global _start<br/>
+<br/>
+_start:<br/>
+&nbsp;&nbsp;mov edx, helloworld_length<br/>
+&nbsp;&nbsp;mov ecx, helloworld<br/>
+&nbsp;&nbsp;mov ebx, 1<br/>
+&nbsp;&nbsp;mov eax, 4<br/>
+&nbsp;&nbsp;int 0x80<br/>
+<br/>
+&nbsp;&nbsp;mov eax, 1<br/>
+&nbsp;&nbsp;int 0x80<br/>
+<br/>
+section .data<br/>
+helloworld: db 'Hello, world!',10<br/>
+helloworld_length: equ $ - helloworld<br/>
+				</div>
+				<p>Now, we will walk through the program together. We start out by declaring that we are in the .text section, and then we write “global _start”. This line tells the assembler that we are going to define the starting point for our program later, and is something that must be done at the start of all assembly language programs. Then, we will define a label called _start, by typing “_start:”, with a colon at the end to tell the assembler that this is a label. It is common convention to indent all lines that are contained within the label after that. We will move the length of our string, helloworld_length into edx. We will move the address in memory (the number that indicates where a piece of data is stored on our computer) of our string helloworld into ecx. We will move 1 in into ebx to let the assembler know that we want to write to standard output. We will move 4 into eax to let the assembler know that the operation that we want to perform is a write. Finally, we will call int 0x80. “int” stands for interrupt, and the argument 0x80 is used for system calls. When we execute a system call, the computer will look at the values inside of the registers to determine what should be done. We have gone through those values already. Next, we will quit the program, so we will move 1 into eax to specific an exit, and call int 0x80 again. The final part of our program is the .data section, where we define our string using db (which defines one or more bytes of data), and the length of our string using equ (which is the equivalent of a normal equals sign). Note that the reason that we have 10 after our string is because 10 represents a newline. Also note that the way that we find the length of the string is $ - the name of the string. This will only work on the line right after the string is defined, because $ means the current location, so to find the length of the string, we will subtract the current location in memory from the location in memory of the start of the string. </p>
+				<h3>Conclusion</h3>
+				<p>In conclusion, I hope that you understand the basics of assembly language now. If you would like to go further, some resources that you can use are linked below. Although some of these tutorials are not specifically for x86-64 Ubuntu Intel assembly language, the only difference in the syntax of the assembly language variant will be the opcodes, and there are tables available online that will help you figure out what opcodes mean on a specific processor and system. </p>
+				<ul>
+					<li><a target='_blank' href='https://www.tutorialspoint.com/assembly_programming/assembly_introduction.htm'>Assembly - Introduction - TutorialsPoint</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=ViNnfoE56V8'>Assembly Language Tutorial - Derek Banas</a></li>
+					<li><a target='_blank' href='https://www.youtube.com/watch?v=W8UTCqWb2eQ'>Learn Assembly Language Programming - Daniel Ross</a></li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
