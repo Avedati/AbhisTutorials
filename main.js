@@ -78,6 +78,26 @@ window.onload = function() {
 		document.getElementById('assembly-language-content').classList.add('active');
 	};
 
+	document.getElementById('physics').onclick = function() {
+		document.getElementById('tutorials').classList.remove('active');
+		document.getElementById('physics-content').classList.add('active');
+	};
+
+	document.getElementById('economics').onclick = function() {
+		document.getElementById('tutorials').classList.remove('active');
+		document.getElementById('economics-content').classList.add('active');
+	};
+
+	document.getElementById('ela').onclick = function() {
+		document.getElementById('tutorials').classList.remove('active');
+		document.getElementById('ela-content').classList.add('active');
+	};
+
+	document.getElementById('whistory').onclick = function() {
+		document.getElementById('tutorials').classList.remove('active');
+		document.getElementById('whistory-content').classList.add('active');
+	};
+
 	[...document.getElementsByClassName('back')].forEach(function(v) {
 		v.onclick = function() {
 			[...document.getElementsByClassName('active')].forEach(function(w) { w.classList.remove('active'); });

@@ -41,7 +41,7 @@ div.screen#home article p {
 	float:left;
 	margin:5px 5vw;
 	width:80%;
-	height:calc(40% - 10px);
+	height:calc(55% - 10px);
 	font-size:1.25vw;
 }
 
@@ -89,7 +89,7 @@ div.screen#home aside div img {
 	min-height:100%;
 }
 
-h1#title {
+h1.title {
 	float:left;
 	width:100vw;
 	height:10vh;
@@ -138,45 +138,48 @@ div.cell {
 	-ms-user-select:none;
 	-o-user-select:none;
 	user-select:none;
-}
-
-div.cell#neural-networks {
 	background:#C6D8D3;
 	color:black;
 }
 
-div.cell#neural-networks:hover {
+div.cell:hover {
 	background:#D7E9E4;
+}
+
+div.cell.resource {
+	background:#E56399;
+}
+
+div.cell.resource:hover {
+	background:#F674AA;
 }
 
 div.screen#neural-networks-content {
 	background:#C6D8D3;
 }
 
-div.cell#game-design {
-	background:#C6D8D3;
-	color:black;
-}
-
-div.cell#game-design:hover {
-	background:#D7E9E4;
-}
-
 div.screen#game-design-content {
 	background:#C6D8D3;
 }
 
-div.cell#assembly-language {
-	background:#C6D8D3;
-	color:black;
-}
-
-div.cell#assembly-language:hover {
-	background:#D7E9E4;
-}
-
 div.screen#assembly-language-content {
 	background:#C6D8D3;
+}
+
+div.screen#physics-content {
+	background:#E56399;
+}
+
+div.screen#economics-content {
+	background:#E56399;
+}
+
+div.screen#ela-content {
+	background:#E56399;
+}
+
+div.screen#whistory-content {
+	background:#E56399;
 }
 
 div.space {
