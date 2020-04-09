@@ -487,15 +487,15 @@ Have fun learning!
 &lt;!doctype html&gt;<br/>
 &lt;html&gt;<br/>
 &nbsp;&nbsp;&lt;head&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset=&apos;utf-8&apos; &bsol;&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Pong&lt;&bsol;title&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;link rel=&apos;stylesheet&apos; href=&apos;style.css&apos; type=&apos;text&bsol;css&apos; &bsol;&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src=&apos;main.js&apos; type=&apos;text&bsol;javascript&apos;&gt;&lt;&bsol;script&gt;<br/>
-&nbsp;&nbsp;&lt;&bsol;head&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset=&apos;utf-8&apos; &sol;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Pong&lt;&sol;title&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;link rel=&apos;stylesheet&apos; href=&apos;style.css&apos; type=&apos;text&sol;css&apos; &sol;&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;script src=&apos;main.js&apos; type=&apos;text&sol;javascript&apos;&gt;&lt;&sol;script&gt;<br/>
+&nbsp;&nbsp;&lt;&sol;head&gt;<br/>
 &nbsp;&nbsp;&lt;body&gt;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas id=&apos;canvas&apos;&gt;&lt;&bsol;canvas&gt;<br/>
-&nbsp;&nbsp;&lt;&bsol;body&gt;<br/>
-&lt;&bsol;html&gt;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&lt;canvas id=&apos;canvas&apos;&gt;&lt;&sol;canvas&gt;<br/>
+&nbsp;&nbsp;&lt;&sol;body&gt;<br/>
+&lt;&sol;html&gt;<br/>
 				</div>
 				<p>This HTML document will set our character set to UTF-8 (don’t worry about that for now), set the webpage title to “Pong”, link our CSS stylesheet and use our JavaScript file. Lastly, we will create a canvas element in the body. </p>
 				<p>Next, we will setup a simple CSS stylesheet. </p>
@@ -662,8 +662,9 @@ class Paddle {<br/>
 				<div class='code'>
 update(ball) {<br/>
 &nbsp;&nbsp;if(this.ai) {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;var ball_center_y = ball.y + ball.height &bsol; 2;<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;var this_center_y = this.y + this.height &bsol; 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;var ball_center_y = ball.y + ball.height &
+					; 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;var this_center_y = this.y + this.height &sol; 2;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;if(ball_center_y &gt; this_center_y) { this.y += 3; }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;else if(ball_center_y &lt; this_center_y) { this.y -= 3; }<br/>
 &nbsp;&nbsp;}<br/>
@@ -679,20 +680,20 @@ render(canvas, context) {<br/>
 &nbsp;&nbsp;context.textAlign = 'center';<br/>
 &nbsp;&nbsp;context.textBaseline = 'middle';<br/>
 &nbsp;&nbsp;context.font = '24px Arial';<br/>
-&nbsp;&nbsp;if(this.x &lt; window.innerWidth &bsol; 2) {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &bsol; 4, window.innerHeight &bsol; 8);<br/>
+&nbsp;&nbsp;if(this.x &lt; window.innerWidth &sol; 2) {<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &sol; 4, window.innerHeight &sol; 8);<br/>
 &nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;else {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &ast; 3 &bsol; 4, window.innerHeight &bsol; 8);<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;context.fillText(this.score, window.innerWidth &ast; 3 &sol; 4, window.innerHeight &sol; 8);<br/>
 &nbsp;&nbsp;}<br/>
 }<br/>
 				</div>
-				<p>Now, we can go back to the three variables created in window.onload: paddle1, paddle2, and ball. We can now understand what these variables are. These variables are created using the corresponding class, and the arguments provided are for the constructor of that class. For example, ball is a Ball object with an x position of the horizontal center of the screen (window.innerWidth &bsol; 2) - 10 pixels (to account for the width of the ball), and a y position of the vertical center of the screen (window.innerHeight &bsol; 2) - 10 pixels (to account for the height of the ball). </p>
+				<p>Now, we can go back to the three variables created in window.onload: paddle1, paddle2, and ball. We can now understand what these variables are. These variables are created using the corresponding class, and the arguments provided are for the constructor of that class. For example, ball is a Ball object with an x position of the horizontal center of the screen (window.innerWidth &sol; 2) - 10 pixels (to account for the width of the ball), and a y position of the vertical center of the screen (window.innerHeight &sol; 2) - 10 pixels (to account for the height of the ball). </p>
 				<span class='italic'>main.js</span>
 				<div class='code'>
-var paddle1 = new Paddle(20, window.innerHeight &bsol; 2 - 40);
-var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight &bsol; 2 - 40, ai=true);
-var ball = new Ball(window.innerWidth &bsol; 2 - 10, window.innerHeight &bsol; 2 - 10);
+var paddle1 = new Paddle(20, window.innerHeight &sol; 2 - 40);
+var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight &sol; 2 - 40, ai=true);
+var ball = new Ball(window.innerWidth &sol; 2 - 10, window.innerHeight &sol; 2 - 10);
 				</div>
 				<p>Next, we will define another function inside of window.onload: keydown. This function is called whenever any key is pressed. It will check if the keycode is 38, which corresponds to the up arrow key. If so, it will move the left paddle up by 5 pixels, and use Math.max to make sure that the paddle does not move off of the screen. Similarly if the keycode is 40 (down arrow key), it will move the right paddle down by 5 pixels, and use Math.min to make sure that the paddle does not move off of the screen. </p>
 				<span class='italic'>main.js</span>
