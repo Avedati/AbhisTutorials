@@ -58,6 +58,26 @@ function initSplitDataCanvas(canvas, data_radius, data_add_function_1, data_add_
 }
 
 window.onload = function() {
+	if(window.location.hash) {
+		if(window.location.hash === '#aicourse') {
+			document.getElementById('go').click();
+			document.getElementById('neural-networks').click();
+		}
+		else if(window.location.hash === '#gamedesigncourse') {
+			document.getElementById('go').click();
+			document.getElementById('game-design').click();
+		}
+		else if(window.location.hash === 'assemblylanguagecourse') {
+			document.getElementById('go').click();
+			document.getElementById('assembly-language').click();
+		}
+		else if(['physics','economics','ela','whistory'].map(function(v) { return '#' + v + 'resources'; })
+			.includes(window.location.hash)) {
+			document.getElementById('go').click();
+			document.getElementById(window.location.hash.substring(1,window.location.hash.length - 9)).click();
+		}
+	}
+	
 	document.getElementById('go').onclick = function() {
 		document.getElementById('home').classList.remove('active');
 		document.getElementById('tutorials').classList.add('active');
@@ -66,36 +86,43 @@ window.onload = function() {
 	document.getElementById('neural-networks').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('neural-networks-content').classList.add('active');
+		window.location.hash = '#aicourse';
 	};
 
 	document.getElementById('game-design').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('game-design-content').classList.add('active');
+		window.location.hash = '#gamedesigncourse';
 	};
 
 	document.getElementById('assembly-language').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('assembly-language-content').classList.add('active');
+		window.location.hash = '#assemblylanguagecourse';
 	};
 
 	document.getElementById('physics').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('physics-content').classList.add('active');
+		window.location.hash = '#physicsresources';
 	};
 
 	document.getElementById('economics').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('economics-content').classList.add('active');
+		window.location.hash = '#economicsresources';
 	};
 
 	document.getElementById('ela').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('ela-content').classList.add('active');
+		window.location.hash = '#elaresources';
 	};
 
 	document.getElementById('whistory').onclick = function() {
 		document.getElementById('tutorials').classList.remove('active');
 		document.getElementById('whistory-content').classList.add('active');
+		window.location.hash = '#whistoryresources';
 	};
 
 	[...document.getElementsByClassName('back')].forEach(function(v) {
