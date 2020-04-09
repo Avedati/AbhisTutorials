@@ -58,10 +58,11 @@ function initSplitDataCanvas(canvas, data_radius, data_add_function_1, data_add_
 }
 
 window.onload = function() {
-	console.log(window.location.hash);
-	
+	console.log('we got here (0)');
 	if(window.location.hash) {
+		console.log('we got here (1)');
 		if(window.location.hash === '#aicourse') {
+			console.log('we got here (2)');
 			document.getElementById('go').click();
 			document.getElementById('neural-networks').click();
 		}
@@ -69,7 +70,7 @@ window.onload = function() {
 			document.getElementById('go').click();
 			document.getElementById('game-design').click();
 		}
-		else if(window.location.hash === 'assemblylanguagecourse') {
+		else if(window.location.hash === '#assemblylanguagecourse') {
 			document.getElementById('go').click();
 			document.getElementById('assembly-language').click();
 		}
