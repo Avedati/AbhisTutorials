@@ -58,14 +58,14 @@ function initSplitDataCanvas(canvas, data_radius, data_add_function_1, data_add_
 }
 
 window.onload = function() {
+	console.log(window.location.hash);
+	
 	if(window.location.hash) {
 		if(window.location.hash === '#aicourse') {
-			console.log('we got here! (aicourse)');
 			document.getElementById('go').click();
 			document.getElementById('neural-networks').click();
 		}
 		else if(window.location.hash === '#gamedesigncourse') {
-			console.log('we got here! (gamedesigncourse)');
 			document.getElementById('go').click();
 			document.getElementById('game-design').click();
 		}
