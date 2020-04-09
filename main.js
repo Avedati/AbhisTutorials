@@ -58,29 +58,6 @@ function initSplitDataCanvas(canvas, data_radius, data_add_function_1, data_add_
 }
 
 window.onload = function() {
-	console.log('we got here (0)');
-	if(window.location.hash) {
-		console.log('we got here (1)');
-		if(window.location.hash === '#aicourse') {
-			console.log('we got here (2)');
-			document.getElementById('go').click();
-			document.getElementById('neural-networks').click();
-		}
-		else if(window.location.hash === '#gamedesigncourse') {
-			document.getElementById('go').click();
-			document.getElementById('game-design').click();
-		}
-		else if(window.location.hash === '#assemblylanguagecourse') {
-			document.getElementById('go').click();
-			document.getElementById('assembly-language').click();
-		}
-		else if(['physics','economics','ela','whistory'].map(function(v) { return '#' + v + 'resources'; })
-			.includes(window.location.hash)) {
-			document.getElementById('go').click();
-			document.getElementById(window.location.hash.substring(1,window.location.hash.length - 9)).click();
-		}
-	}
-	
 	document.getElementById('go').onclick = function() {
 		document.getElementById('home').classList.remove('active');
 		document.getElementById('tutorials').classList.add('active');
@@ -128,6 +105,26 @@ window.onload = function() {
 		window.location.hash = '#whistoryresources';
 	};
 
+	if(window.location.hash) {
+		if(window.location.hash === '#aicourse') {
+			document.getElementById('go').click();
+			document.getElementById('neural-networks').click();
+		}
+		else if(window.location.hash === '#gamedesigncourse') {
+			document.getElementById('go').click();
+			document.getElementById('game-design').click();
+		}
+		else if(window.location.hash === '#assemblylanguagecourse') {
+			document.getElementById('go').click();
+			document.getElementById('assembly-language').click();
+		}
+		else if(['physics','economics','ela','whistory'].map(function(v) { return '#' + v + 'resources'; })
+			.includes(window.location.hash)) {
+			document.getElementById('go').click();
+			document.getElementById(window.location.hash.substring(1,window.location.hash.length - 9)).click();
+		}
+	}
+	
 	[...document.getElementsByClassName('back')].forEach(function(v) {
 		v.onclick = function() {
 			[...document.getElementsByClassName('active')].forEach(function(w) { w.classList.remove('active'); });
