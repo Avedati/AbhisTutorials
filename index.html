@@ -371,7 +371,7 @@ Have fun learning!
 	<br/>layer_2 <span class='blue'>=</span> tf.add(tf.matmul(layer_1, weights[<span class='yellow'>'w2'</span>]), biases[<span class='yellow'>'b2'</span>])
 	<br/>layer_3 <span class='blue'>=</span> tf.add(tf.matmul(layer_2, weights[<span class='yellow'>'w3'</span>]), biases[<span class='yellow'>'b3'</span>])
 	<br/>layer_drop <span class='blue'>=</span> tf.nn.dropout(layer_3, keep_prob)
-	<br/>output_layer <span class='blue'>=</span> tf.matmul(layer_3, weights[<span class='yellow'>'out'</span>]) + biases[<span class='yellow'>'out'</span>]
+	<br/>output_layer <span class='blue'>=</span> tf.matmul(layer_drop, weights[<span class='yellow'>'out'</span>]) + biases[<span class='yellow'>'out'</span>]
 	</div>
 					<p>Notice that using matrix multiplications and additions, we are able to accomplish the structure discussed in the chapter about neural network theory. The activation of each neuron in layer 1 is calculated to be a weighted sum of the values of the neurons in the input layer (images), plus biases. This is true for all of the layers.</p>
 					<p>We will define an optimizer using an algorithm called softmax cross entropy with logits, and the optimizer we will use will be the Adam optimizer. For more information on softmax cross entropy with logits and the Adam optimizer, be sure to check out these links:</p>
