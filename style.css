@@ -256,67 +256,6 @@ div.code {
 	line-height:3vh;
 }
 
-div.texteditor {
-	float:left;
-	position:relative;
-	width:100%;
-	height:40vh;
-	border-radius:10px;
-}
-
-div.texteditor textarea.code {
-	float:left;
-	padding:10px;
-	width:calc(50% - 20px);
-	height:calc(100% - 20px);
-	border:0;
-	outline:0;
-	resize:none;
-	background:#272727;
-	color:white;
-	font-family:'Inconsolata';
-	font-size:100%;
-	line-height:3vh;
-	white-space:pre;
-	overflow-y:scroll;
-	border-radius:10px 0px 0px 10px;
-}
-
-div.texteditor button.play {
-	position:absolute;
-	left:43%;
-	top:73%;
-	width:64px;
-	height:64px;
-	border:0;
-	outline:0;
-	border-radius:50%;
-	background:#383838;
-	color:white;
-	font-family:'Inconsolata';
-	font-size:250%;
-	transition:background .5s;
-}
-
-div.texteditor button.play:hover {
-	background:#494949;
-}
-
-div.texteditor div.output {
-	float:left;
-	padding:10px;
-	border:0;
-	outline:0;
-	width:calc(50% - 20px);
-	height:calc(100% - 20px);
-	background:#383838;
-	color:white;
-	font-family:'Inconsolata';
-	font-size:100%;
-	overflow-y:scroll;
-	border-radius:0px 10px 10px 0px;
-}
-
 a {
 	float:left;
 	width:100%;
@@ -327,6 +266,11 @@ a {
 	line-height:5vh;
 }
 
+a.inline {
+	float:none;
+	font-size:100%;
+}
+
 a:hover {
 	color:#badc58;
 }
@@ -334,8 +278,4 @@ a:hover {
 canvas {
 	margin:0px 10px;
 	border-radius:5px;
-}
-
-canvas.video {
-	border-radius:10px;
 }

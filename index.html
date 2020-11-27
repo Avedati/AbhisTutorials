@@ -4,30 +4,13 @@
 		<meta charset='utf-8' />
 		<title>Teaching Website</title>
 		<link rel='stylesheet' href='style.css' type='text/css' />
+		<link rel='icon' href='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e2/Ambox_globe.svg/768px-Ambox_globe.svg.png' type='image/png'></link>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/latest.js?config=AM_CHTML"></script>
 		<script src='main.js' type='text/javascript'></script>
 	</head>
 	<body>
-		<template id='texteditor-template'>
-			<div class='texteditor'>
-				<textarea class='code' placeholder='// Hello, world!' spellcheck='false'></textarea>
-				<button class='play'>&gt;</button>
-				<div class='output'></div>
-			</div>
-		</template>
-
-		<template id='video-template'>
-			<canvas class='video'></canvas>
-		</template>
-
 		<template id='split-data-template'>
 			<canvas class='split-data'></canvas>
-		</template>
-
-		<template id='practice-question-template'>
-			<div class='practice-question'>
-				<p></p>
-			</div>
 		</template>
 
 		<div class='screen active' id='home'>
@@ -37,7 +20,7 @@
 				<button id='go'>Go!</button>
 			</article>
 			<aside>
-				<div><img src='res/profile.png'></img></div>
+				<div><img src='resources/profile.png'></img></div>
 			</aside>
 		</div>
 
@@ -51,6 +34,7 @@
 			<div class='cell resource' id='economics'>Economics</div>
 			<div class='cell resource' id='ela'>Writing and English Language Arts</div>
 			<div class='cell resource' id='whistory'>World History</div>
+			<!-- TODO: these -->
 			<!-- div class='cell' id='compiler-design'>compiler design</div -->
 			<!-- div class='cell' id='web-scraping'>Compiler Design</div -->
 			<!-- div class='cell' id='operating-system-design'>Compiler Design</div -->
@@ -286,264 +270,131 @@ Have fun learning!
 						<input type='range' min='0' max='100' value='50' id='v3'></input><span>Value #3: </span><span id='wsi-v3-val'>50</span><br/>
 						<span>Sum: </span><span id='wsi-sum'></span>
 					</div>
-					<!-- p>*Insert interactive activity*</p -->
+					<!-- p>TODO: *Insert interactive activity*</p -->
 					<p>As you can see, each layer builds on the previous layer using weighted sums. When we get to the output layer, we will make a guess by finding the maximum value from the output layer. For example, in our animal and plant example, there might be two neurons in the output layer so that a high value for the first neuron indicates that the neural network thinks that the image is an animal, and a high value for the second neuron indicates that the neural network thinks that the image is a plant.</p>
 					<p>One handy aspect of this method is that once we select the neuron in the output layer with the highest value, that neurons value gives us a confidence percentage for our guess. For example, if the highest value in the output layer was 0.94, the neural network is 94% confident that it’s guess is correct. Going back to the animal and plant example, if the first neuron in the output layer has a value of 0.97, that means that the neural network thinks that the image is an animal with 97% confidence.</p>
 					<canvas id='output-layer-first-neuron'></canvas>
-					<!-- p>*Insert GIF which shows this here*</p -->
+					<!-- p>TODO: *Insert GIF which shows this here*</p -->
 					<p>The cost function tells us how far the neural network is from the correct answer. The cost function is defined by the sum of the squares of the differences between the value of each neuron in the output layer and what that value should be. I know that the previous sentence was very dense and confusing, so I will provide a concrete example to more clearly explain the cost function.</p>
 					<p>Recall from our animal and plant example that a high value for the first neuron in the output layer meant that the neural network thought that the image was an animal, and that a high value for the second neuron in the output layer meant that the neural network thought that the image was a plant. Let’s say that we fed the neural network an image of an animal. Under these conditions, the value of the first neuron in the output layer should be 1, and the value of the second neuron in the output layer should be 0. Let’s say that the first neuron in the output layer had a value of 0.83 and the second neuron in the output layer had a value of 0.19. The value that the cost function outputs should be `(0.83 - 1)^2 + (0.19 - 0)^2`. If instead the first neuron in the output layer had a value of 0.99 and the second neuron in the output layer had a value of 0.05, the value that the cost function outputs should be `(0.99 - 1)^2 + (0.05 - 0)^2`.</p>
 					<p>We will initialize all of the weights and biases to random numbers, meaning that our network will perform very poorly. We will use the technique mentioned in the first chapter to minimize the cost function. We will compute the derivatives of the cost function with respect to every weight and bias in the entire neural network. These derivatives are known as partial derivatives, and we will treat every other weight and bias as a constant when calculating them. In other words, we will only apply our differentiation rules for the current weight and bias. For more information on partial derivatives, I would recommend the YouTube channel 3Blue1Brown. We will adjust that weight or bias accordingly by subtracting its derivative from it. Before we subtract that weight or bias’s derivative from it, we will first multiply the derivative by the learning rate, a variable that controls how fast the neural network learns. The learning rate is usually small, so that we take small steps when minimizing the cost function so that we do not minimize the cost function too much and overshoot the local minimum.</p>
 					<p>I understand that that entire paragraph was probably very confusing, so please take it slowly and go back to any of the content that you did not understand.</p>
 				</div>
 				<div class='space'></div>
-				<!--div id='ch3'>
-					<h2>Implementing your First Neural Network</h2>
-					<p>Now it’s time for you to implement your first neural network! You will create a neural network that can recognize handwritten digits. This is a common first program in the world of neural networks, as there is a dataset called the MNIST dataset that has already been made out of thousands of images of handwritten digits and their labels (which digit each image represents). For the purposes of this tutorial, I will be using a program that I built a couple of months ago using a Digital Ocean tutorial, with some modifications and explanations of each piece of code.</p>
-					<p>First you will need to install Python, the programming language that we will use to build our neural network. Python can be installed from it’s website, <a href='https://www.python.org/' target='_blank'>https&#58;&bsol;&bsol;www&#46;python&#46;org</a>. Hover over the “Downloads” tab and click on the download for the latest version of Python (Python 3.8.0, as of November 2019). Once the file has been downloaded, double click on it and follow the directions in the wizard to install Python.</p>
-					<p>Next, you will need to install Tensorflow, the Python library which we will use to program our neural networks. To install Tensorflow, you will want to navigate to their downloads page (<a href='https://www.tensorflow.org/install' target='_blank'>https&#58;&bsol;&bsol;www&#46;tensorflow&#46;org&bsol;install</a>). Follow the directions on their website and type in the commands into either a terminal if you are on macOS / Linux or a command prompt if you are on Windows OS.</p>
-					<p>Now that you have both Python and Tensorflow, it’s time to start writing some code!</p>
-					<p>First, we have to import the Tensorflow module. Normally, we would use this line:</p>
-					<div class='code'>
-	<span class='red'>import</span> tensorflow <span class='red'>as</span> tf
-	</div>
-					<p>However, at this time I am writing this, there is actually a weird bug in tensorflow which causes trouble when using the MNIST dataset. To fix the issue, we must downgrade to tensorflow version 1 using these lines:</p>
-					<div class='code'>
-	<span class='red'>import</span> tensorflow.compat.v1 <span class='red'>as</span> tf
-	<br/>tf.disable_v2_behavior()
-	</div>
-					<p>Next, we need to get the MNIST dataset. Because this was such a pain to do, I have provided the tensorflow <a href='resources/input_data.py' download>input_data.py</a> file for you. We can use this file using the following lines:</p>
-					<div class='code'>
-	<span class='red'>import</span> input_data
-	<br/>mnist <span class='blue'>=</span> input_data.read_data_sets(<span class='yellow'>'MNIST_data/'</span>, one_hot<span class='blue'>=</span><span class='green'>True</span>)
-	</div>
-					<p>As mentioned in our theory of neural networks section, we will divide our data into training data (used to train the neural network) and testing data (used to test the neural network’s performance). We will also have a third category called validation data. Validation data is used by tensorflow to figure out how well the network is performing while it is still being trained. The following lines define variables for the number of example data being used for each category.</p>
-					<div class='code'>
-	n_train <span class='blue'>=</span> mnist.train.num_examples
-	<br/>n_validation <span class='blue'>=</span> mnist.validation.num_examples
-	<br/>n_test <span class='blue'>=</span> mnist.test.num_examples
-	</div>
-					<p>Next, we will need to define the structure of our neural network. Our neural network will have an input layer, 3 hidden layers, and an output layer. The input layer will have enough neurons to store a 28x28 image (784 neurons), the 3 hidden layers will each (somewhat arbitrarily) have 512 neurons, and the output layer will have 10 neurons (to represent which digit the network thinks the input data is, 0 - 9).</p>
-					<div class='code'>
-	n_input <span class='blue'>=</span> <span class='purple'>28</span> <span class='blue'>*</span> <span class='purple'>28</span> 
-	<br/>n_hidden_1 <span class='blue'>=</span> <span class='purple'>512</span>
-	<br/>n_hidden_2 <span class='blue'>=</span> <span class='purple'>512</span>
-	<br/>n_hidden_3 <span class='blue'>=</span> <span class='purple'>512</span>
-	<br/>n_output <span class='blue'>=</span> <span class='purple'>10</span>
-	</div>
-					<p>The learning rate of our neural network (covered in the chapter on neural network theory) will be very small so that our network trains slowly and confidently.</p>
-					<div class='code'>
-	learning_rate <span class='blue'>=</span> <span class='purple'>0.0001</span>
-	</div>
-					<p>We will be training our network in “epochs”, which are large sets of images. We will have 10,000 epochs, each with 128 images.</p>
-					<div class='code'>
-	n_epochs <span class='blue'>=</span> <span class='purple'>10000</span>
-	<br/>batch_size <span class='blue'>=</span> <span class='purple'>128</span>
-	</div>
-					<p>Next we will define the “dropout rate” of our neural network. The dropout rate is a measure of how often a neural network will ignore a weight or bias during training to avoid overtraining that weight or bias (to avoid overfitting the neural network to the training data and to make sure that it can generalize to new data). We will initialize this value to 0.5 to allow this to happen half of the time. </p>
-					<div class='code'>
-	dropout <span class='blue'>=</span> <span class='purple'>0.5</span>
-	</div>
-					<p>Now we will define placeholder variables that will eventually hold our images, labels, and probability of keeping a specific weight or bias.</p>
-					<div class='code'>
-	images <span class='blue'>=</span> tf.placeholder(<span class='yellow'>'float'</span>, [<span class='green'>None</span>, n_input])
-	<br/>labels <span class='blue'>=</span> tf.placeholder(<span class='yellow'>'float'</span>, [<span class='green'>None</span>, n_output])
-	<br/>keep_prob <span class='blue'>=</span> tf.placeholder(tf.float32)
-	</div>
-					<p>Next, we will define two dictionaries, for weights and biases respectively. The weights dictionary will contain matrices, or grids, of decimal values, each from -2.0 to 2.0. The biases dictionary will contain lists populated by the value 0.1</p>
-					<*image of a matrix*>
-					<div class='code'>weights <span class='blue'>=</span> {
-	<br/>&nbsp;&nbsp;<span class='yellow'>'w1'</span>:tf.Variable(tf.truncated_normal([n_input, n_hidden_1], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'w2'</span>:tf.Variable(tf.truncated_normal([n_hidden_1, n_hidden_2], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'w3'</span>:tf.Variable(tf.truncated_normal([n_hidden_2, n_hidden_3], stddev<span class='blue'>=</span><span class='purple'>0.1</span>)),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'out'</span>:tf.Variable(tf.truncated_normal([n_hidden_3, n_output], stddev<span class='blue'>=</span><span class='purple'>0.1</span>))
-	<br/>}
-	<br/>
-	<br/>biases <span class='blue'>=</span> {
-	<br/>&nbsp;&nbsp;<span class='yellow'>'b1'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_1])),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'b2'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_2])),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'b3'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_hidden_3])),
-	<br/>&nbsp;&nbsp;<span class='yellow'>'out'</span>:tf.Variable(tf.constant(<span class='purple'>0.1</span>, shape<span class='blue'>=</span>[n_output]))
-	<br/>}
-	</div>
-					<p>Now we will calculate each layer using matrix multiplications and additions. Matrix multiplication (for our purposes) is the process of calculating multiple weighted sums of the first matrix, with each row of the second matrix acting as the weights for that sum. In this way, matrix multiplication results in a matrix with a width of one element, where each element is a weighted sum. Matrix addition (for our purposes) is the process of adding each element in one matrix with the corresponding element in the other matrix. If you would like to learn more about matrices and their operations, you can learn about them on Khan Academy.</p>
-					<div class='code'>
-	layer_1 <span class='blue'>=</span> tf.add(tf.matmul(images, weights[<span class='yellow'>'w1'</span>]), biases[<span class='yellow'>'b1'</span>])
-	<br/>layer_2 <span class='blue'>=</span> tf.add(tf.matmul(layer_1, weights[<span class='yellow'>'w2'</span>]), biases[<span class='yellow'>'b2'</span>])
-	<br/>layer_3 <span class='blue'>=</span> tf.add(tf.matmul(layer_2, weights[<span class='yellow'>'w3'</span>]), biases[<span class='yellow'>'b3'</span>])
-	<br/>layer_drop <span class='blue'>=</span> tf.nn.dropout(layer_3, keep_prob)
-	<br/>output_layer <span class='blue'>=</span> tf.matmul(layer_drop, weights[<span class='yellow'>'out'</span>]) + biases[<span class='yellow'>'out'</span>]
-	</div>
-					<p>Notice that using matrix multiplications and additions, we are able to accomplish the structure discussed in the chapter about neural network theory. The activation of each neuron in layer 1 is calculated to be a weighted sum of the values of the neurons in the input layer (images), plus biases. This is true for all of the layers.</p>
-					<p>We will define an optimizer using an algorithm called softmax cross entropy with logits, and the optimizer we will use will be the Adam optimizer. For more information on softmax cross entropy with logits and the Adam optimizer, be sure to check out these links:</p>
-					<a href='https://deepnotes.io/softmax-crossentropy'>https://deepnotes.io/softmax-crossentropy</a>
-					<a href='https://peterroelants.github.io/posts/cross-entropy-softmax/'>https://peterroelants.github.io/posts/cross-entropy-softmax/</a>
-					<a href='https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/'>https://machinelearningmastery.com/adam-optimization-algorithm-for-deep-learning/</a>
-					<a href='https://towardsdatascience.com/adam-latest-trends-in-deep-learning-optimization-6be9a291375c'>https://towardsdatascience.com/adam-latest-trends-in-deep-learning-optimization-6be9a291375c</a>
-					<div class='code'>
-	cross_entropy <span class='blue'>=</span> tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(labels<span class='blue'>=</span>labels, logits<span class='blue'>=</span>output_layer))
-	<br/>train_step <span class='blue'>=</span> tf.train.AdamOptimizer(learning_rate).minimize(cross_entropy)
-	<br/>
-	<br/>correct_pred <span class='blue'>=</span> tf.equal(tf.argmax(output_layer, <span class='purple'>1</span>), tf.argmax(labels, <span class='purple'>1</span>))
-	<br/>accuracy <span class='blue'>=</span> tf.reduce_mean(tf.cast(correct_pred, tf.float32))
-	</div>
-					<p>Finally, we will run our program using the following lines of code. We will create a session variable and run it to begin training our network. For each datum, we will print out the current iteration number, our network’s loss (the weights and biases that were dropped out), and our network’s accuracy on the training images. After training is completed, we will test the network on all of the test images, printing out the average accuracy at the end. </p>
-					<div class='code'>
-	init <span class='blue'>=</span> tf.global_variables_initializer()
-	<br/>sess <span class='blue'>=</span> tf.Session()
-	<br/>sess.run(init)
-	<br/>
-	<br/><span class='grey'># train on mini batches</span>
-	<br/><span class='red'>for</span> i <span class='blue'>in</span> <span class='green'>range</span>(n_epochs):
-	<br/>&nbsp;&nbsp;batch_x<span class='red'>,</span> batch_y <span class='blue'>=</span> mnist.train.next_batch(batch_size)
-	<br/>&nbsp;&nbsp;sess.run(train_step,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;feed_dict<span class='blue'>=</span>{
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;images: batch_x,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels: batch_y,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keep_prob: <span class='purple'>1.0</span>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;}
-	<br/>&nbsp;&nbsp;)
-	<br/>
-	<br/>&nbsp;&nbsp;<span class='grey'># print loss and accuracy (per minibatch)</span>
-	<br/>&nbsp;&nbsp;<span class='red'>if</span> i <span class='blue'>%</span> <span class='purple'>100</span> <span class='blue'>==</span> <span class='purple'>0</span>:
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;minibatch_loss, minibatch_accuracy <span class='blue'>=</span> sess.run(
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[cross_entropy, accuracy],
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;feed_dict<span class='blue'>=</span>{
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;images: batch_x,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;labels: batch_y,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keep_prob: <span class='purple'>1.0</span>
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;)
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>print</span>(
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'Iteration'</span>,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(i),
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'\t| Loss ='</span>,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(minibatch_loss),
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='yellow'>'\t| Accuracy ='</span>,
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class='green'>str</span>(minibatch_accuracy)
-	<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)
-	<br/>
-	<br/><span class='grey'># test the neural network and print it's accuracy.</span>
-	<br/>test_accuracy <span class='blue'>=</span> sess.run(accuracy, feed_dict<span class='blue'>=</span>{images: mnist.test.images, labels: mnist.test.labels, keep_prob: <span class='purple'>1.0</span>})
-	<br/><span class='green'>print</span>(<span class='yellow'>'\nAccuracy on test set:'</span>, test_accuracy)
-	</div>
-					<p>And just like that, you have written your first neural network! If anything was unclear, don’t hesitate to refer back to the previous chapter or other resources to better understand the concepts. Also, give yourself a pat on the back! You have learned A LOT of content and successfully applied it to a real world problem. In the next chapter, we will look at more real-world applications of neural networks through the lense of robotics.</p>
-				</div-->
 				<div id='ch3'>
 					<h2>Your First Neural Network</h2>
-					<p>To see these concepts in action, we will build the neural network for the mnist dataset <a href='https://www.tensorflow.org/datasets/keras_example'>as shown on the tensorflow website</a>.</p>
+					<p>To see these concepts in action, we will build the neural network for the mnist dataset <a class='inline' href='https://www.tensorflow.org/datasets/keras_example'>as shown on the tensorflow website</a>.</p>
 					<div class='code'>
-						import tensorflow as tf<br/>
-import tensorflow_datasets as tfds<br/>
-from tensorflow.keras import Sequential<br/>
-from tensorflow.keras.layers import Flatten, Dense<br/>
+						<span class='red'>import</span> tensorflow <span class='red'>as</span> tf<br/>
+<span class='red'>import</span> tensorflow_datasets <span class='red'>as</span> tfds<br/>
+<span class='red'>from</span> tensorflow.keras <span class='red'>import</span> Sequential<br/>
+<span class='red'>from</span> tensorflow.keras.layers <span class='red'>import</span> Flatten, Dense<br/>
 <br/>
-img_width = 28<br/>
-img_height = 28<br/>
+img_width <span class='yellow'>=</span> <span class='purple'>28</span><br/>
+img_height <span class='yellow'>=</span> <span class='purple'>28</span><br/>
 <br/>
-# https://www.tensorflow.org/datasets/keras_example<br/>
-(ds_train, ds_test), ds_info = tfds.load(<br/>
-&nbsp;&nbsp;'mnist',split=['train', 'test'], shuffle_files=True, as_supervised=True, with_info=True<br/>
+<span class='blue'># https://www.tensorflow.org/datasets/keras_example</span><br/>
+(ds_train, ds_test), ds_info <span class='yellow'>=</span> tfds.load(<br/>
+&nbsp;&nbsp;<span class='yellow'>'mnist'</span>,&nbsp;split<span class='yellow'>=</span>[<span class='yellow'>'train'</span>, <span class='yellow'>'test'</span>], shuffle_files<span class='yellow'>=</span><span class='purple'>True</span>, as_supervised<span class='yellow'>=</span><span class='purple'>True</span>, with_info<span class='yellow'>=</span><span class='purple'>True</span><br/>
 )<br/>
+<span class='red'>def</span> normalize_img(image, label):<br/>
+&nbsp;&nbsp;<span class='blue'>"""Normalizes images: uint8 -&gt; float32."""</span><br/>
+&nbsp;&nbsp;<span class='red'>return</span> tf.cast(image, tf.float32) / <span class='purple'>255.</span>, label<br/>
 <br/>
-def normalize_img(image, label):<br/>
-&nbsp;&nbsp;"""Normalizes images: uint8 -&gt; float32."""<br/>
-&nbsp;&nbsp;return tf.cast(image, tf.float32) / 255., label<br/>
+ds_train <span class='yellow'>=</span> ds_train.map(normalize_img, num_parallel_calls<span class='yellow'>=</span>tf.data.experimental.AUTOTUNE)<br/>
+ds_train <span class='yellow'>=</span> ds_train.cache()<br/>
+ds_train <span class='yellow'>=</span> ds_train.shuffle(ds_info.splits[<span class='yellow'>'train'</span>].num_examples)<br/>
+ds_train <span class='yellow'>=</span> ds_train.batch(<span class='purple'>128</span>)<br/>
+ds_train <span class='yellow'>=</span> ds_train.prefetch(tf.data.experimental.AUTOTUNE)<br/>
 <br/>
-ds_train = ds_train.map(normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)<br/>
-ds_train = ds_train.cache()<br/>
-ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)<br/>
-ds_train = ds_train.batch(128)<br/>
-ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)<br/>
+ds_test <span class='yellow'>=</span> ds_test.map(normalize_img, num_parallel_calls<span class='yellow'>=</span>tf.data.experimental.AUTOTUNE)<br/>
+ds_test <span class='yellow'>=</span> ds_test.batch(<span class='purple'>128</span>)<br/>
+ds_test <span class='yellow'>=</span> ds_test.cache()<br/>
+ds_test <span class='yellow'>=</span> ds_test.prefetch(tf.data.experimental.AUTOTUNE)<br/>
 <br/>
-ds_test = ds_test.map(normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)<br/>
-ds_test = ds_test.batch(128)<br/>
-ds_test = ds_test.cache()<br/>
-ds_test = ds_test.prefetch(tf.data.experimental.AUTOTUNE)<br/>
-<br/>
-model = Sequential([<br/>
-&nbsp;&nbsp;Flatten(input_shape=(img_width, img_height, 1)),<br/>
-&nbsp;&nbsp;Dense(128, activation='relu'),<br/>
-&nbsp;&nbsp;Dense(10, activation='softmax')<br/>
+model <span class='yellow'>=</span> Sequential([<br/>
+&nbsp;&nbsp;Flatten(input_shape<span class='yellow'>=</span>(img_width, img_height, <span class='purple'>1</span>)),<br/>
+&nbsp;&nbsp;Dense(128, activation<span class='yellow'>='relu'</span>),<br/>
+&nbsp;&nbsp;Dense(10, activation<span class='yellow'>='softmax'</span>)<br/>
 ])<br/>
 <br/>
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])<br/>
-model.fit(ds_train, epochs=10, validation_data=ds_test)<br/>
+model.compile(optimizer<span class='yellow'>='adam'</span>, loss<span class='yellow'>='sparse_categorical_crossentropy'</span>, metrics<span class='yellow'>=</span>[<span class='yellow'>'accuracy'</span>])<br/>
+model.fit(ds_train, epochs<span class='yellow'>=</span><span class='purple'>10</span>, validation_data<span class='yellow'>=</span>ds_test)<br/>
 					</div>
 					<p>First, we will import the required modules:</p>
 					<div class='code'>
-						import tensorflow as tf<br/>
-import tensorflow_datasets as tfds<br/>
-from tensorflow.keras import Sequential<br/>
-from tensorflow.keras.layers import Flatten, Dense
+						<span class='red'>import</span> tensorflow <span class='red'>as</span> tf<br/>
+<span class='red'>import</span> tensorflow_datasets <span class='red'>as</span> tfds<br/>
+<span class='red'>from</span> tensorflow.keras <span class='red'>import</span> Sequential<br/>
+<span class='red'>from</span> tensorflow.keras.layers <span class='red'>import</span> Flatten, Dense<br/>
 					</div>
 					<p>Then, we will define the width and height (in pixels) for each of our images. In the case of the mnist dataset, we have 28x28 images.</p>
 					<div class='code'>
-img_width = 28<br/>
-img_height = 28
+img_width <span class='yellow'>=</span> <span class='purple'>28</span><br/>
+img_height <span class='yellow'>=</span> <span class='purple'>28</span><br/>
 					</div>
 					<p>We will then have to load and clean up the data. First, we will load in the mnist dataset, specifying that we want both the training and testing data, that the input files (the image files) should be shuffled (randomized), setting as_supervised to True to make sure that the dataset is received as a tuple, and setting with_info to True, so that we can get information about the data, such as the length of the dataset.</p>
 					<div class='code'>
-(ds_train, ds_test), ds_info = tfds.load(<br/>
-&nbsp;&nbsp;'mnist',split=['train', 'test'], shuffle_files=True, as_supervised=True, with_info=True<br/>
-)
+(ds_train, ds_test), ds_info <span class='yellow'>=</span> tfds.load(<br/>
+&nbsp;&nbsp;<span class='yellow'>'mnist'</span>,&nbsp;split<span class='yellow'>=</span>[<span class='yellow'>'train'</span>, <span class='yellow'>'test'</span>], shuffle_files<span class='yellow'>=</span><span class='purple'>True</span>, as_supervised<span class='yellow'>=</span><span class='purple'>True</span>, with_info<span class='yellow'>=</span><span class='purple'>True</span><br/>
+)<br/>
 					</div>
 					<p>Now we have to clean and prepare the dataset. First, we want to normalize each image. Each of our images consists of a matrix (grid) of grayscale values. Each of the grayscale values ranges from 0 to 255, but we want each value to range from 0 to 1, so we have to divide all of the values by 255. To do this, we will define a function:</p>
 					<div class='code'>
-def normalize_img(image, label):<br/>
-&nbsp;&nbsp;"""Normalizes images: uint8 -&gt; float32."""<br/>
-&nbsp;&nbsp;return tf.cast(image, tf.float32) / 255., label
+<span class='red'>def</span> normalize_img(image, label):<br/>
+&nbsp;&nbsp;<span class='blue'>"""Normalizes images: uint8 -&gt; float32."""</span><br/>
+&nbsp;&nbsp;<span class='red'>return</span> tf.cast(image, tf.float32) / <span class='purple'>255.</span>, label<br/>
 					</div>
 					<p>First, we will prepare the training data. We will apply the normalize_img function to every image in the training dataset.</p>
 					<div class='code'>
-ds_train = ds_train.map(normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)
+ds_train <span class='yellow'>=</span> ds_train.map(normalize_img, num_parallel_calls<span class='yellow'>=</span>tf.data.experimental.AUTOTUNE)<br/>
 					</div>
 					<p>Then, we will cache the dataset. This means that for every time after the first time the training dataset is loaded, the training dataset will be loaded from memory instead of from a tensorflow database. Therefore caching the dataset will make it load much faster.</p>
 					<div class='code'>
-ds_train = ds_train.cache()
+ds_train <span class='yellow'>=</span> ds_train.cache()<br/>
 					</div>
 					<p>Next, we will shuffle the training dataset, providing the entire size of the training dataset (from ds_info), so that the entire dataset is shuffled. </p>
 					<div class='code'>
-ds_train = ds_train.shuffle(ds_info.splits['train'].num_examples)
+ds_train <span class='yellow'>=</span> ds_train.shuffle(ds_info.splits[<span class='yellow'>'train'</span>].num_examples)<br/>
 					</div>
 					<p>
 Then, we will call the batch function to group our training dataset into “batches” of 128 images each. We do this mainly to save time when training and make the process of training the neural network less expensive, because with batches, fewer images have to be run through the network each time.
 </p>
 					<div class='code'>
-ds_train = ds_train.batch(128)
+ds_train <span class='yellow'>=</span> ds_train.batch(<span class='purple'>128</span>)<br/>
 					</div>
 					<p>Finally, we will make our training dataset a “prefetch” dataset, meaning that our training dataset will fetch a set number of samples (which we have indicated should be experimentally determined with tf.data.experimental.AUTOTUNE) from the original (non-prefetch) dataset every time it needs to provide data to the network. This is done to reduce latency.</p>
 					<div class='code'>
-ds_train = ds_train.prefetch(tf.data.experimental.AUTOTUNE)
+ds_train <span class='yellow'>=</span> ds_train.prefetch(tf.data.experimental.AUTOTUNE)<br/>
 					</div>
 					<p>We will repeat most of the same steps for the testing dataset, but we will arrange them in a slightly different order and we won’t need to shuffle the testing data (because the neural network will not remember the testing data, so it doesn’t matter what order it’s in, and thus it’s ok if it’s in the same order every time).</p>
 					<div class='code'>
-ds_test = ds_test.map(normalize_img, num_parallel_calls=tf.data.experimental.AUTOTUNE)<br/>
-ds_test = ds_test.batch(128)<br/>
-ds_test = ds_test.cache()<br/>
-ds_test = ds_test.prefetch(tf.data.experimental.AUTOTUNE)
+ds_test <span class='yellow'>=</span> ds_test.map(normalize_img, num_parallel_calls<span class='yellow'>=</span>tf.data.experimental.AUTOTUNE)<br/>
+ds_test <span class='yellow'>=</span> ds_test.batch(<span class='purple'>128</span>)<br/>
+ds_test <span class='yellow'>=</span> ds_test.cache()<br/>
+ds_test <span class='yellow'>=</span> ds_test.prefetch(tf.data.experimental.AUTOTUNE)<br/>
 					</div>
 					<p>Now, we will define our model. Our model will be a series of layers, or steps (a sequential model). Our first layer will “flatten” each of the images from a two-dimensional array of 28x28 grayscale values into a one-dimensional array of 784 grayscale values. Our second layer is a densely-connected neural network layer with 128 output neurons and with ReLU as its activation function. Our third layer is a densely-connected neural network layer with 10 output neurons (for each of the 10 possible digits) and with softmax as its activation function.
 </p>
 					<div class='code'>
-model = Sequential([<br/>
-&nbsp;&nbsp;Flatten(input_shape=(img_width, img_height, 1)),<br/>
-&nbsp;&nbsp;Dense(128, activation='relu'),<br/>
-&nbsp;&nbsp;Dense(10, activation='softmax')<br/>
-])
+model <span class='yellow'>=</span> Sequential([<br/>
+&nbsp;&nbsp;Flatten(input_shape<span class='yellow'>=</span>(img_width, img_height, <span class='purple'>1</span>)),<br/>
+&nbsp;&nbsp;Dense(128, activation<span class='yellow'>='relu'</span>),<br/>
+&nbsp;&nbsp;Dense(10, activation<span class='yellow'>='softmax'</span>)<br/>
+])<br/>
 					</div>
 					<p>Before we use our model, we have to “compile” it. We will choose the Adam optimizer, sparse categorical cross entropy as our cost function, and accuracy as our metric.</p>
 					<div class='code'>
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+model.compile(optimizer<span class='yellow'>='adam'</span>, loss<span class='yellow'>='sparse_categorical_crossentropy'</span>, metrics<span class='yellow'>=</span>[<span class='yellow'>'accuracy'</span>])<br/>
 					</div>
 					<p>We will then test our model by fitting it to the training dataset, training for 10 epochs, and testing it with the testing dataset.</p>
-					<div class='code'>model.fit(ds_train, epochs=10, validation_data=ds_test)</div>
+					<div class='code'>model.fit(ds_train, epochs<span class='yellow'>=</span><span class='purple'>10</span>, validation_data<span class='yellow'>=</span>ds_test)</div>
 					<p>Typically, the model will achieve above 95% accuracy on the testing dataset. If the training is too slow, you can reduce the number of epochs to 5, as this shouldn’t have a huge effect on the performance.</p>
 				</div>
 				<div class='space'></div>
 				<div class='ch4'>
 					<h2>Your Second Neural Network</h2>
-					<p>Now, we will build another neural network, this time on tensorflow’s plant dataset. We will be focusing on the Arjun plant for the purposes of demonstration. The dataset consists of images of plant leaves, some of which are diseased and some of which are healthy. This neural network was inspired by one aimed at detecting malaria by <a href='https://www.youtube.com/channel/UCTiWgVtEGSY4cuduJbMPblA'>KGP Talkie</a>. You should watch his video as well <a href='https://www.youtube.com/watch?v=Jdagdil0FIw'>here</a>. Below is the code for the our neural network:</p>
+					<p>Now, we will build another neural network, this time on tensorflow’s plant dataset. We will be focusing on the Arjun plant for the purposes of demonstration. The dataset consists of images of plant leaves, some of which are diseased and some of which are healthy. This neural network was inspired by one aimed at detecting malaria by <a class='inline' href='https://www.youtube.com/channel/UCTiWgVtEGSY4cuduJbMPblA'>KGP Talkie</a>. You should watch his video as well <a class='inline' href='https://www.youtube.com/watch?v=Jdagdil0FIw'>here</a>. Below is the code for the our neural network:</p>
 					<div class='code'>
 						import tensorflow as tf<br/>
 import numpy as np<br/>
@@ -580,7 +431,7 @@ model = Sequential([<br/>
 model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])<br/>
 history = model.fit(training_data_generator, steps_per_epoch=len(training_data_generator), epochs=7, validation_data=validation_data_generator, validation_steps=len(validation_data_generator))<br/>
 					</div>
-					<p>There are two main differences between this neural network and the previous one. We are getting our data from a local folder (on the user’s computer). You can download the dataset <a href='resources/Arjun.zip' download>here</a>. First we create an ImageDataGenerator, which we call datagen. We want to normalize the data, and because the pixel values will range from 1 to 255 (as with the last neural network), we pass a rescaling factor of 1/255 to the ImageDataGenerator. We also want 20% of our data to be validation data, which we can use to test the neural network, hence we set validation_split=0.2</p>
+					<p>There are two main differences between this neural network and the previous one. We are getting our data from a local folder (on the user’s computer). You can download the dataset <a class='inline' href='resources/Arjun.zip' download>here</a>. First we create an ImageDataGenerator, which we call datagen. We want to normalize the data, and because the pixel values will range from 1 to 255 (as with the last neural network), we pass a rescaling factor of 1/255 to the ImageDataGenerator. We also want 20% of our data to be validation data, which we can use to test the neural network, hence we set validation_split=0.2</p>
 					<div class='code'>datagen = ImageDataGenerator(rescale=1/255.0, validation_split=0.2)</div>
 					<p>Next, we will use datagen to get our training and validation data. We specify the directory, or folder, name (which is ‘Arjun’). We set our target image size to 256x256 (which was experimentally determined to work well for classification). We set class_mode to ‘binary’, because we have two classes: healthy and diseased. Then, we specify that we want our data to be in batches of 16 (remember, batches are used to reduce latency when training the neural network), and then we specify which subset of the data we want to take (training or validation).
 </p>
@@ -602,7 +453,7 @@ validation_data_generator = datagen.flow_from_directory(directory='Arjun', targe
 				</div>
 				<div id='ch5'>
 					<h2>Your Third Neural Network</h2>
-					<p>Our third neural network will be a neural network that detects diseases in bean plants. The catch with this neural network is that there are now three categories to identify instead of two, which will result in a couple of minor changes in our neural network. You can download the dataset <a href='resources/bean_data.zip' download>here</a>. Otherwise, most of the network will be very similar to the previous two. As with the previous neural network, this is inspired by <a href='https://www.youtube.com/channel/UCTiWgVtEGSY4cuduJbMPblA'>KGP Talkie’s</a> video in which he builds a malaria detecting neural network. You should watch his video as well <a href='https://www.youtube.com/watch?v=Jdagdil0FIw'>here</a>.</p>
+					<p>Our third neural network will be a neural network that detects diseases in bean plants. The catch with this neural network is that there are now three categories to identify instead of two, which will result in a couple of minor changes in our neural network. You can download the dataset <a class='inline' href='resources/bean_data.zip' download>here</a>. Otherwise, most of the network will be very similar to the previous two. As with the previous neural network, this is inspired by <a class='inline' href='https://www.youtube.com/channel/UCTiWgVtEGSY4cuduJbMPblA'>KGP Talkie’s</a> video in which he builds a malaria detecting neural network. You should watch his video as well <a class='inline' href='https://www.youtube.com/watch?v=Jdagdil0FIw'>here</a>.</p>
 					<div class='code'>
 # https://www.youtube.com/watch?v=Jdagdil0FIw<br/>
 import tensorflow as tf<br/>
@@ -645,7 +496,7 @@ history = model.fit(training_data_generator, steps_per_epoch=len(training_data_g
 					<h2>Ethics</h2>
 					<p>Here’s an interesting question: All of this stuff about using neural networks to solve problems is all well and good, but why should I care about solving any problems? What if I just want to make the world a better place for myself? I work plenty hard and I deserve it.</p>
 					<p>Making the lives of other people better feels good. It shows the results of something that you have worked hard on, and creates more joy in a world that certainly needs some. However, even disregarding the moral incentive to use neural networks for good, there is a genuine economic incentive.</p>
-					<p>As is beautifully explained in <a href='https://www.youtube.com/watch?v=rvskMHn0sqQ&t=85s' target='_blank'>this video</a> by Kurzgesagt, economics are fundamentally driven by supply and demand. Therefore, if there is a large demand for a product, a lot of resources will be invested in making it. Because of this principle, it is in your best interest for there to be prosperity all around the world, because if everyone is on a level playing field socioeconomically, there will be incredible amounts of investment in products and solutions that can benefit everyone, which people from all around the world will contribute to, so that those products and solutions are developed faster.</p>
+					<p>As is beautifully explained in <a class='inline' href='https://www.youtube.com/watch?v=rvskMHn0sqQ&t=85s' target='_blank'>this video</a> by Kurzgesagt, economics are fundamentally driven by supply and demand. Therefore, if there is a large demand for a product, a lot of resources will be invested in making it. Because of this principle, it is in your best interest for there to be prosperity all around the world, because if everyone is on a level playing field socioeconomically, there will be incredible amounts of investment in products and solutions that can benefit everyone, which people from all around the world will contribute to, so that those products and solutions are developed faster.</p>
 					<p>As an example, let’s say that everyone is living existence as a middle-class American. The demand for luxury items, such as sports cars or expensive jewelry, will go up, now that everyone has their basic necessities taken care of. Luxury items will be manufactured with better quality, more efficiency, and a less demanding price (so that these goods can reach everyone). Suddenly, everyone has luxury items. Now, there is a market for curing cancer instead, because everyone has luxury items and basic necessities. As the video explains, there will now be 7 billion people investing in a cure for cancer (because everyone has the resources to), and there will be a vast global network of medical professionals to unearth cures. In a couple of years time, cancer has been all but eliminated!</p>
 					<p>As you can see, it is in everyone’s best interest if everyone does well, so that there will be more demand for better and better products and services, literally enriching everyone’s life.</p>
 				</div>
@@ -868,8 +719,7 @@ class Paddle {<br/>
 				<div class='code'>
 update(ball) {<br/>
 &nbsp;&nbsp;if(this.ai) {<br/>
-&nbsp;&nbsp;&nbsp;&nbsp;var ball_center_y = ball.y + ball.height &
-					; 2;<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;var ball_center_y = ball.y + ball.height &sol; 2;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;var this_center_y = this.y + this.height &sol; 2;<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;if(ball_center_y &gt; this_center_y) { this.y += 3; }<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;else if(ball_center_y &lt; this_center_y) { this.y -= 3; }<br/>
@@ -897,9 +747,9 @@ render(canvas, context) {<br/>
 				<p>Now, we can go back to the three variables created in window.onload: paddle1, paddle2, and ball. We can now understand what these variables are. These variables are created using the corresponding class, and the arguments provided are for the constructor of that class. For example, ball is a Ball object with an x position of the horizontal center of the screen (window.innerWidth &sol; 2) - 10 pixels (to account for the width of the ball), and a y position of the vertical center of the screen (window.innerHeight &sol; 2) - 10 pixels (to account for the height of the ball). </p>
 				<span class='italic'>main.js</span>
 				<div class='code'>
-var paddle1 = new Paddle(20, window.innerHeight &sol; 2 - 40);
-var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight &sol; 2 - 40, ai=true);
-var ball = new Ball(window.innerWidth &sol; 2 - 10, window.innerHeight &sol; 2 - 10);
+var paddle1 = new Paddle(20, window.innerHeight &sol; 2 - 40);<br/>
+var paddle2 = new Paddle(window.innerWidth - 40, window.innerHeight &sol; 2 - 40, ai=true);<br/>
+var ball = new Ball(window.innerWidth &sol; 2 - 10, window.innerHeight &sol; 2 - 10);<br/>
 				</div>
 				<p>Next, we will define another function inside of window.onload: keydown. This function is called whenever any key is pressed. It will check if the keycode is 38, which corresponds to the up arrow key. If so, it will move the left paddle up by 5 pixels, and use Math.max to make sure that the paddle does not move off of the screen. Similarly if the keycode is 40 (down arrow key), it will move the right paddle down by 5 pixels, and use Math.min to make sure that the paddle does not move off of the screen. </p>
 				<span class='italic'>main.js</span>
@@ -910,7 +760,7 @@ function keydown(ev) {<br/>
 &nbsp;&nbsp;}<br/>
 &nbsp;&nbsp;else if(ev.keyCode === 40) {<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;paddle1.y = Math.min(paddle1.y + 5, window.innerHeight - paddle1.height);<br/>
-&nbsp;&nbsp;}
+&nbsp;&nbsp;}<br/>
 }<br/>
 				</div>
 				<p>In the start function, we will tell the window to execute the keydown function whenever a key is pressed down. </p>
@@ -1099,7 +949,7 @@ window.onload&nbsp;=&nbsp;function()&nbsp;{<br/>
 				<h3>What is Assembly Language?</h3>
 				<p>Assembly language is a programming language that is about one step above machine code, the binary code that is executed by your computer directly. This means that assembly language is a fairly low-level programming language. Essentially, in assembly language, you do all memory-management yourself, meaning that you reserve space for variables in your program using a block of data that represents memory on your computer. </p>
 				<h3>Registers</h3>
-				<p>Registers are a way of representing small amounts of data. You access registers via their names, and each register can carry either 8, 16, 32, or 64 bits of data. The University of Las Vegas at Nevada provides a good table for understanding the sizes and names of x86-64 registers in assembly language, which I have included below. You can learn more about assembly language and registers via their PDF linked <a target='_blank' href='http://www.egr.unlv.edu/~ed/assembly64.pdf'>here</a>. </p>
+				<p>Registers are a way of representing small amounts of data. You access registers via their names, and each register can carry either 8, 16, 32, or 64 bits of data. The University of Las Vegas at Nevada provides a good table for understanding the sizes and names of x86-64 registers in assembly language, which I have included below. You can learn more about assembly language and registers via their PDF linked <a class='inline' target='_blank' href='http://www.egr.unlv.edu/~ed/assembly64.pdf'>here</a>.</p>
 				<br/>
 				<h3>Parts of an assembly language program</h3>
 				<p>There are three sections to an assembly language program:</p>
@@ -1122,7 +972,7 @@ window.onload&nbsp;=&nbsp;function()&nbsp;{<br/>
 				<div class='code'>idiv &lt;dest&gt;, &lt;src&gt;</div>
 				<p>The idiv instruction stands for integer division. It divides the integer in dest from the integer in src, and the result is in dest. </p>
 				<div class='code'>neg &lt;src&gt;</div>
-				<p>The neg instruction negates the number in src, and the result is in src. The negation is done using a two’s complement, which you can learn more about on <a target='_blank' href='https://en.wikipedia.org/wiki/Two%27s_complement'>Wikipedia</a>. </p>
+				<p>The neg instruction negates the number in src, and the result is in src. The negation is done using a two’s complement, which you can learn more about on <a class='inline' target='_blank' href='https://en.wikipedia.org/wiki/Two%27s_complement'>Wikipedia</a>. </p>
 				<div class='code'>call &lt;label&gt;</div>
 				<p>The call argument goes to the label “label”, keeping track of where “label” was called from, so that a return will return to the original position in the program. </p>
 				<div class='code'>ret</div>
