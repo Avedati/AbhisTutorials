@@ -4,14 +4,33 @@ function loadCodeInto(id, code, language) {
 	  .replace(/ /g, '&nbsp;');
 	if(language == 'js') {
 		code = code
+		  .replace(/=/g, '<span class=\'blue\'>=</span>')
 		  .replace(/var&nbsp;/g, '<span class=\'red\'>var</span>&nbsp;')
+		  .replace(/new&nbsp;/g, '<span class=\'red\'>new</span>&nbsp;')
+		  .replace(/if/g, '<span class=\'red\'>if</span>')
+		  .replace(/else/g, '<span class=\'red\'>else</span>')
+		  .replace(/class&nbsp;/g, '<span class=\'red\'>class</span>&nbsp;')
+		  .replace(/this/g, '<span class=\'green\'>this</span>')
+		  .replace(/function/g, '<span class=\'green\'>function</span>')
 		  .replace(/window\./g, '<span class=\'green\'>window</span>.')
 		  .replace(/window&nbsp;/g, '<span class=\'green\'>window</span>&nbsp;');
+	}
+	else if(language == 'python') {
+		code = code
+		  .replace(/import&nbsp;/g, '<span class=\'red\'>import</span>&nbsp;')
+		  .replace(/from&nbsp;/g, '<span class=\'red\'>from</span>&nbsp;')
+		  .replace(/&nbsp;as&nbsp;/g, '&nbsp;<span class=\'red\'>as</span>&nbsp;')
+		  .replace(/def&nbsp;/g, '<span class=\'red\'>def</span>&nbsp;')
+		  .replace(/return&nbsp;/g, '<span class=\'red\'>return</span>&nbsp;')
+		  .replace(/=&nbsp;/g, '<span class=\'green\'>=</span>&nbsp;');
 	}
 	else if(language == 'html') {
 		code = code
 		  .replace(/</g, '&lt;')
-		  .replace(/>/g, '&gt;');
+		  .replace(/>/g, '&gt;')
+		  .replace(/=/g, '<span class=\'blue\'>=</span>')
+		  .replace(/&lt;/g, '<span class=\'green\'>&lt;</span>')
+		  .replace(/&gt;/g, '<span class=\'green\'>&gt;</span>')
 	}
 	document.getElementById(id).innerHTML = code;
 }
