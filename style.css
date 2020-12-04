@@ -254,6 +254,7 @@ div.code {
 	height:auto;
 	border-radius:10px;
 	line-height:3vh;
+	white-space:pre-line;
 }
 
 a {
